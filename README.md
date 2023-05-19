@@ -57,6 +57,12 @@ Azure requires a corporate email to sign up for the service.
 - [Document search](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
 
+### privateGPT
+
+Based on GPT4All
+
+- [Main reference](https://github.com/imartinez/privateGPT)
+
 ## References
 
 ### Fine tuning
