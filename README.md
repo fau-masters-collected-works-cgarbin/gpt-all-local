@@ -57,13 +57,33 @@ Azure requires a corporate email to sign up for the service.
 - [Document search](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
 
+### GPT4All
+
+- [Main reference](https://github.com/nomic-ai/gpt4all)
+- - License: ?
+
 ### privateGPT
 
 Based on GPT4All
 
 - [Main reference](https://github.com/imartinez/privateGPT)
+- License: ?
+
+### GPT-J
+
+- [Main reference](https://www.eleuther.ai/artifacts/gpt-j)
+- License: ?
+
+### MPT-7B
+
+- [Main reference](https://www.mosaicml.com/blog/mpt-7b)
+- License: varies by model type
 
 ## References
+
+### RLHF
+
+- TODO: add references
 
 ### Fine tuning
 
