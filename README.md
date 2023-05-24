@@ -1,6 +1,8 @@
 # Using large language models (LLMs) on our own (local) data
 
-Goal: use large language models (LLMs) to extract information from our own (local) data.
+## Goal
+
+Use large language models (LLMs) to extract information from our own (local) data.
 
 Typical use case: a company has private documents that where never used to train the model. Therefore we need to enhance the interaction with the model to get results from these documents.
 
@@ -60,27 +62,16 @@ Azure requires a corporate email to sign up for the service.
 - [Document search](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
 
-### GPT4All
+### OpenAI
 
-- [Main reference](https://github.com/nomic-ai/gpt4all)
-- License: ?
+### LangChain
 
-### privateGPT
+### Other
 
-Based on GPT4All
-
-- [Main reference](https://github.com/imartinez/privateGPT)
-- License: ?
-
-### GPT-J
-
-- [Main reference](https://www.eleuther.ai/artifacts/gpt-j)
-- License: ?
-
-### MPT-7B
-
-- [Main reference](https://www.mosaicml.com/blog/mpt-7b)
-- License: varies by model type
+- [GPT4All](https://github.com/nomic-ai/gpt4all)
+- [privateGPT](https://github.com/imartinez/privateGPT). Based on GPT4All.
+- [GPT-J](https://www.eleuther.ai/artifacts/gpt-j)
+- [MPT-7B](https://www.mosaicml.com/blog/mpt-7b)
 
 ## References
 
@@ -97,6 +88,8 @@ Based on GPT4All
 - [OpenAI fine-tuning guide](https://platform.openai.com/docs/guides/fine-tuning)
 
 ### Zero-shot learning
+
+TODO: add references
 
 ### General
 
