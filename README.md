@@ -62,18 +62,28 @@ Azure requires a corporate email to sign up for the service.
 - [Document search](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
 
+
+### Google
+
 ### OpenAI
 
 ### LangChain
 
-### Other
+## References
+
+### Projects that ingest local data
+
+- [GPT-4 & LangChain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain): _"Create a ChatGPT Chatbot for Your PDF Files"_.
+
+### Projects that run GPT locally
+
+- [privateGPT](https://github.com/imartinez/privateGPT). Based on GPT4All.
+
+### Projects that create/publish models
 
 - [GPT4All](https://github.com/nomic-ai/gpt4all)
-- [privateGPT](https://github.com/imartinez/privateGPT). Based on GPT4All.
 - [GPT-J](https://www.eleuther.ai/artifacts/gpt-j)
-- [MPT-7B](https://www.mosaicml.com/blog/mpt-7b)
-
-## References
+- [MPT-7B](https://www.mosaicml.com/blog/mpt-7b): _"provide a commercially-usable, open-source model that matches (and - in many ways - surpasses) LLaMA-7B."_
 
 ### Vector database and similarity search
 
@@ -91,7 +101,7 @@ Azure requires a corporate email to sign up for the service.
 
 TODO: add references
 
-### General
+### Other
 
 - [Reddit: The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
 - [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
