@@ -16,6 +16,9 @@ Possible solutions:
 
 Items to consider when selecting a solution:
 
+1. License
+   1. Commercial vs. non-commercial use.
+   1. GPLv3 vs. others.
 1. Time to make the solution available.
    1. Fine-tuning: time to train the model.
    1. Zero-shot learning: time to create a vector database that will be used to extract information from our own data.
@@ -60,7 +63,7 @@ Azure requires a corporate email to sign up for the service.
 ### GPT4All
 
 - [Main reference](https://github.com/nomic-ai/gpt4all)
-- - License: ?
+- License: ?
 
 ### privateGPT
 
@@ -81,6 +84,10 @@ Based on GPT4All
 
 ## References
 
+### Vector database and similarity search
+
+- [Faiss: the missing manual](https://www.pinecone.io/learn/faiss/): Covers the basic concepts in the context of Faiss.
+
 ### RLHF
 
 - TODO: add references
@@ -93,5 +100,6 @@ Based on GPT4All
 
 ### General
 
-- [Reddit: [D] The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
--
+- [Reddit: The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
+- [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
+- [MLC LLM](https://github.com/mlc-ai/mlc-llm): _"a universal solution that allows any language models to be deployed natively on a diverse set of hardware backends and native applications"_.
