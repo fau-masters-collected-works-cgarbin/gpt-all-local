@@ -62,10 +62,18 @@ Azure requires a corporate email to sign up for the service.
 - [Document search](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
 
-
 ### Google
 
 ### OpenAI
+
+- [The "query your data" tutorial](https://github.com/openai/openai-cookbook/tree/main/apps/chatbot-kickstarter).
+  - See [slides](https://drive.google.com/file/d/1dB-RQhZC_Q1iAsHkNNdkqtxxXqYODFYy/view) first.
+  - This is a good conceptual example - a good place to start learning (starting with slides, then code).
+- [File Q&A](https://github.com/openai/openai-cookbook/tree/main/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
+  - Similar to the one above, but uses [pinecone](https://www.pinecone.io/) to store the embeddigs (the Flask example, not the Next.js one).
+  - Compared to the previous example, it is closer to a deployable solution because it uses a vector database for the embeddings.
+- [Using Vector Databases for Embeddings Search](https://github.com/openai/openai-cookbook/blob/main/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb).
+  - Shows how to use different embedding databses.
 
 ### LangChain
 
@@ -85,6 +93,16 @@ Azure requires a corporate email to sign up for the service.
 - [GPT-J](https://www.eleuther.ai/artifacts/gpt-j)
 - [MPT-7B](https://www.mosaicml.com/blog/mpt-7b): _"provide a commercially-usable, open-source model that matches (and - in many ways - surpasses) LLaMA-7B."_
 
+### Other projects with LLMs
+
+- [AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT): Similar to "agents" in LangChain. May be interesting to see how it is implemented behind the scenes (LangChain is also open source, but it has a lot more than agents -- this one is more focused).
+
+### Good tutorials
+
+Some third-party tutorials that I found explain the concepts well. Note that they may get outdated quickly.
+
+- [Run ChatGPT-Style Questions Over Your Own Files Using the OpenAI API and LangChain!](https://www.reaminated.com/run-chatgpt-style-questions-over-your-own-files-using-the-openai-api-and-langchain).
+
 ### Vector database and similarity search
 
 - [Faiss: the missing manual](https://www.pinecone.io/learn/faiss/): Covers the basic concepts in the context of Faiss.
@@ -97,12 +115,12 @@ Azure requires a corporate email to sign up for the service.
 
 - [OpenAI fine-tuning guide](https://platform.openai.com/docs/guides/fine-tuning)
 
-### Zero-shot learning
-
-TODO: add references
-
 ### Other
 
 - [Reddit: The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
 - [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
 - [MLC LLM](https://github.com/mlc-ai/mlc-llm): _"a universal solution that allows any language models to be deployed natively on a diverse set of hardware backends and native applications"_.
+
+### Prompt techniques to improve information retrieval
+
+- [OpenAI's Techniques to improve reliability](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md): Illustrates techniques to improve answers, including "Let's think step by step" ([Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916) - zero shot) and "chain of thought" ([Language Models Perform Reasoning via Chain of Thought](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html) - few shot).
