@@ -85,16 +85,17 @@ Technical references:
 
 ### LangChain
 
+- [How-To Guides](https://python.langchain.com/en/latest/modules/chains/how_to_guides.html)
+  - TODO: reviews which ones are related to searching own documents.
+
 ## References
-
-### Projects that ingest local data
-
-- [GPT-4 & LangChain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain): _"Create a ChatGPT Chatbot for Your PDF Files"_.
 
 ### Projects that run GPT locally
 
 - [privateGPT](https://github.com/imartinez/privateGPT). Based on GPT4All.
   - Shows how to ingest data from different files format with LangChain.
+- [Run ChatGPT-Style Questions Over Your Own Files Using the OpenAI API and LangChain!](https://www.reaminated.com/run-chatgpt-style-questions-over-your-own-files-using-the-openai-api-and-langchain).
+- [GPT-4 & LangChain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain): _"Create a ChatGPT Chatbot for Your PDF Files"_.
 
 ### Projects that create/publish models
 
@@ -106,19 +107,9 @@ Technical references:
 
 - [AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT): Similar to "agents" in LangChain. May be interesting to see how it is implemented behind the scenes (LangChain is also open source, but it has a lot more than agents -- this one is more focused).
 
-### Good tutorials
-
-Some third-party tutorials that I found explain the concepts well. Note that they may get outdated quickly.
-
-- [Run ChatGPT-Style Questions Over Your Own Files Using the OpenAI API and LangChain!](https://www.reaminated.com/run-chatgpt-style-questions-over-your-own-files-using-the-openai-api-and-langchain).
-
 ### Vector database and similarity search
 
 - [Faiss: the missing manual](https://www.pinecone.io/learn/faiss/): Covers the basic concepts in the context of Faiss.
-
-### RLHF
-
-- TODO: add references
 
 ### Fine tuning
 
@@ -135,3 +126,9 @@ Some third-party tutorials that I found explain the concepts well. Note that the
 
 - [OpenAI's Techniques to improve reliability](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md): Illustrates techniques to improve answers, including "Let's think step by step" ([Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916) - zero shot) and "chain of thought" ([Language Models Perform Reasoning via Chain of Thought](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html) - few shot).
 - [Unit test writing using a multi-step prompt](https://github.com/openai/openai-cookbook/blob/main/examples/Unit_test_writing_using_a_multi-step_prompt.ipynb): Shows how to use a sequence of prompts to get a response.
+
+### Document parsers/loaders
+
+- [Llama Hub](https://llamahub.ai/)
+- [LangChain Document Loaders](https://python.langchain.com/en/latest/modules/indexes/document_loaders.html)
+  - Some loaders seem to be based on the ones from Llama Hub.
