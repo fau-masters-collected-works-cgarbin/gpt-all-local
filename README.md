@@ -62,6 +62,12 @@ Azure requires a corporate email to sign up for the service.
 - [Document search](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/tutorials/embeddings?tabs=command-line)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/)
 
+Technical references:
+
+- [ChatGPT + Enterprise data with Azure OpenAI and Cognitive Search](https://github.com/Azure-Samples/azure-search-openai-demo/)
+  - Companion [blog post](https://techcommunity.microsoft.com/t5/ai-applied-ai-blog/revolutionize-your-enterprise-data-with-chatgpt-next-gen-apps-w/ba-p/3762087).
+  - [Unofficial implementation](https://github.com/akshata29/chatpdf) (refer to the blog post above).
+
 ### Google
 
 ### OpenAI
@@ -69,11 +75,13 @@ Azure requires a corporate email to sign up for the service.
 - [The "query your data" tutorial](https://github.com/openai/openai-cookbook/tree/main/apps/chatbot-kickstarter).
   - See [slides](https://drive.google.com/file/d/1dB-RQhZC_Q1iAsHkNNdkqtxxXqYODFYy/view) first.
   - This is a good conceptual example - a good place to start learning (starting with slides, then code).
+- [Enterprise Knowledge Retrieval](https://github.com/openai/openai-cookbook/tree/main/apps/enterprise-knowledge-retrieval).
+  - _"The notebook is the best place to start, and takes you through an end-to-end workflow for setting up and evaluating a simple back-end knowledge retrieval service"_
 - [File Q&A](https://github.com/openai/openai-cookbook/tree/main/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
-  - Similar to the one above, but uses [pinecone](https://www.pinecone.io/) to store the embeddigs (the Flask example, not the Next.js one).
-  - Compared to the previous example, it is closer to a deployable solution because it uses a vector database for the embeddings.
+  - Similar to the "query your data" and "enterprise knowledge retrieval" tutorials, but includes a front-end and backend.
+  - Seems to be older than the "knowledge retrieval" tutorial.
 - [Using Vector Databases for Embeddings Search](https://github.com/openai/openai-cookbook/blob/main/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb).
-  - Shows how to use different embedding databses.
+  - Shows how to use different embedding databases.
 
 ### LangChain
 
@@ -86,6 +94,7 @@ Azure requires a corporate email to sign up for the service.
 ### Projects that run GPT locally
 
 - [privateGPT](https://github.com/imartinez/privateGPT). Based on GPT4All.
+  - Shows how to ingest data from different files format with LangChain.
 
 ### Projects that create/publish models
 
@@ -120,7 +129,9 @@ Some third-party tutorials that I found explain the concepts well. Note that the
 - [Reddit: The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
 - [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
 - [MLC LLM](https://github.com/mlc-ai/mlc-llm): _"a universal solution that allows any language models to be deployed natively on a diverse set of hardware backends and native applications"_.
+- [Prompt auto-evaluator](https://autoevaluator.langchain.com/): Use GPT-4 to evaluate prompts.
 
 ### Prompt techniques to improve information retrieval
 
 - [OpenAI's Techniques to improve reliability](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md): Illustrates techniques to improve answers, including "Let's think step by step" ([Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916) - zero shot) and "chain of thought" ([Language Models Perform Reasoning via Chain of Thought](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html) - few shot).
+- [Unit test writing using a multi-step prompt](https://github.com/openai/openai-cookbook/blob/main/examples/Unit_test_writing_using_a_multi-step_prompt.ipynb): Shows how to use a sequence of prompts to get a response.
