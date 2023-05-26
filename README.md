@@ -87,7 +87,9 @@ Technical references:
 ### LangChain
 
 - [How-To Guides](https://python.langchain.com/en/latest/modules/chains/how_to_guides.html)
-  - TODO: reviews which ones are related to searching own documents.
+  - The ones related to answering questions on documents:
+    - [Question Answering](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/index_examples/question_answering.ipynb): _"how to use LangChain for question answering over a list of documents. It covers four different types of chains: stuff, map_reduce, refine, map_rerank"_.
+    - [Retrieval Question/Answering](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/index_examples/vector_db_qa.ipynb): _"showcases question answering over an index."_
 
 ## References
 
@@ -116,13 +118,6 @@ Technical references:
 
 - [OpenAI fine-tuning guide](https://platform.openai.com/docs/guides/fine-tuning)
 
-### Other
-
-- [Reddit: The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
-- [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
-- [MLC LLM](https://github.com/mlc-ai/mlc-llm): _"a universal solution that allows any language models to be deployed natively on a diverse set of hardware backends and native applications"_.
-- [Prompt auto-evaluator](https://autoevaluator.langchain.com/): Use GPT-4 to evaluate prompts.
-
 ### Prompt techniques to improve information retrieval
 
 - [OpenAI's Techniques to improve reliability](https://github.com/openai/openai-cookbook/blob/main/techniques_to_improve_reliability.md): Illustrates techniques to improve answers, including "Let's think step by step" ([Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916) - zero shot) and "chain of thought" ([Language Models Perform Reasoning via Chain of Thought](https://ai.googleblog.com/2022/05/language-models-perform-reasoning-via.html) - few shot).
@@ -138,3 +133,12 @@ Technical references:
 
 - [Enterprise Knowledge Retrieval (OpenAI)](https://github.com/openai/openai-cookbook/blob/main/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb): Discusses techniques to improve search results, including "re-ranking" and "query expansion". Uses LangChain to implement some of the techniques.
 - [Fine-tuning a Classifier to Improve Truthfulness (openAI)](https://help.openai.com/en/articles/5528730-fine-tuning-a-classifier-to-improve-truthfulness): Discusses how to fine-tune a classifier to remove false results.
+- Dynamically chosing [prompts](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/multi_prompt_router.ipynb) and [retrievers](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/multi_retrieval_qa_router.ipynb).
+- [Moderating the results](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/moderation.ipynb).
+
+### Other
+
+- [Reddit: The best way to train an LLM on company data (March 2023)](https://www.reddit.com/r/MachineLearning/comments/125qztx/d_the_best_way_to_train_an_llm_on_company_data/): open-ended discussion.
+- [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
+- [MLC LLM](https://github.com/mlc-ai/mlc-llm): _"a universal solution that allows any language models to be deployed natively on a diverse set of hardware backends and native applications"_.
+- [Prompt auto-evaluator](https://autoevaluator.langchain.com/): Use GPT-4 to evaluate prompts.
