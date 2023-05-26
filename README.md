@@ -78,6 +78,7 @@ Technical references:
 - [Enterprise Knowledge Retrieval](https://github.com/openai/openai-cookbook/tree/main/apps/enterprise-knowledge-retrieval).
   - _"The notebook is the best place to start, and takes you through an end-to-end workflow for setting up and evaluating a simple back-end knowledge retrieval service"_
   - This is a **very good** notebook to start with. It shows not only the code, but also the thought process of putting a good solution in place and evaluating it.
+  - It also covers agents, i.e. invoke external tools to complement the LLM.
 - [File Q&A](https://github.com/openai/openai-cookbook/tree/main/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
   - Similar to the "query your data" and "enterprise knowledge retrieval" tutorials, but includes a front-end and backend.
   - Seems to be older than the "knowledge retrieval" tutorial.
@@ -142,3 +143,4 @@ Technical references:
 - [psychic](https://github.com/psychic-api/psychic): _"extract and transform unstructured data from SaaS applications like Notion, Slack, Zendesk, Confluence, and Google Drive"_.
 - [MLC LLM](https://github.com/mlc-ai/mlc-llm): _"a universal solution that allows any language models to be deployed natively on a diverse set of hardware backends and native applications"_.
 - [Prompt auto-evaluator](https://autoevaluator.langchain.com/): Use GPT-4 to evaluate prompts.
+- [How write prompts that invoke external tools (agents)](https://github.com/openai/openai-cookbook/blob/59c12ef6dc5ce21ed1f0c83042a70dfeb88084ed/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb#L1645): This is the same as the link added above for OpenAI knowledge retrieval. I added it here again to remmeber it also has this interesting piece about agents.
