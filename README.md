@@ -77,6 +77,7 @@ Technical references:
   - This is a good conceptual example - a good place to start learning (starting with slides, then code).
 - [Enterprise Knowledge Retrieval](https://github.com/openai/openai-cookbook/tree/main/apps/enterprise-knowledge-retrieval).
   - _"The notebook is the best place to start, and takes you through an end-to-end workflow for setting up and evaluating a simple back-end knowledge retrieval service"_
+  - This is a **very good** notebook to start with. It shows not only the code, but also the thought process of putting a good solution in place and evaluating it.
 - [File Q&A](https://github.com/openai/openai-cookbook/tree/main/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
   - Similar to the "query your data" and "enterprise knowledge retrieval" tutorials, but includes a front-end and backend.
   - Seems to be older than the "knowledge retrieval" tutorial.
@@ -132,3 +133,8 @@ Technical references:
 - [Llama Hub](https://llamahub.ai/)
 - [LangChain Document Loaders](https://python.langchain.com/en/latest/modules/indexes/document_loaders.html)
   - Some loaders seem to be based on the ones from Llama Hub.
+
+### Improving search results
+
+- [Enterprise Knowledge Retrieval (OpenAI)](https://github.com/openai/openai-cookbook/blob/main/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb): Discusses techniques to improve search results, including "re-ranking" and "query expansion". Uses LangChain to implement some of the techniques.
+- [Fine-tuning a Classifier to Improve Truthfulness (openAI)](https://help.openai.com/en/articles/5528730-fine-tuning-a-classifier-to-improve-truthfulness): Discusses how to fine-tune a classifier to remove false results.
