@@ -10,6 +10,7 @@ Their code has some nice features:
 
 """
 from pathlib import Path
+import time
 from langchain.document_loaders import (
     CSVLoader,
     EverNoteLoader,
@@ -60,12 +61,58 @@ def _store_exists():
     return index.exists() and collections.exists() and embeddings.exists()
 
 
+def _file_list():
+    """Return a list of files to ingest."""
+    files = []
+    for ext in LOADER_MAPPING:
+        files.extend(Path(constants.DATA_DIR).rglob(f"*{ext}"))
+    return files
+
+
+def _load_one_file(file: Path):
+    """Load a file into a document."""
+    if file.suffix not in LOADER_MAPPING:
+        log.error("No loader found for file '%s' - skipping it", file)
+        return None
+
+    loader_class, loader_kwargs = LOADER_MAPPING[file.suffix]
+    loader = loader_class(str(file), **loader_kwargs)
+    return loader.load()[0]
+
+
+def _load_all_files(files):
+    """Load all files into documents."""
+    documents = []
+    for file in files:
+        log.debug("Loading file '%s'", file)
+        start = time.time()
+        document = _load_one_file(file)
+        load_time = time.time() - start
+        if document is not None:
+            log.info("Loaded file '%s' with size %s in %.2f seconds", file, f"{file.stat().st_size:,}", load_time)
+            documents.append(document)
+    return documents
+
+
 def ingest():
     """Ingest all documents in the data directory into the vector store.
 
-    TODO: verify what happens if the document already exists in the store.
+    TODO: verify what happens if the document already exists in the store, i.e. what happens if we call "ingest"
+    multiple times and some of the files have already been ingested.
     """
+    embeddings = HuggingFaceEmbeddings(model_name=constants.EMBEDDINGS_MODEL_NAME)
     if _store_exists():
-        log.debug("The vector store already exists in '%s'.", constants.STORAGE_DIR)
+        log.info("The vector store already exists in '%s' - updating it", constants.STORAGE_DIR)
+        db = Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=embeddings,
+                    client_settings=constants.CHROMA_SETTINGS)
+        # We use only one collection for now
+        collection = db.get()
+        log.debug("Loaded collection: %s", collection)
     else:
-        log.info("Creating the vector in '%s'.", constants.STORAGE_DIR)
+        log.info("Creating a new vector store in '%s'", constants.STORAGE_DIR)
+        files = _file_list()
+        log.info("Found %d files to ingest", len(files))
+        log.info("Loading files")
+        documents = _load_all_files(files)
+    log.debug("Persisting the vector store")
+    #db.persist()

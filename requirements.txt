@@ -4,6 +4,12 @@
 langchain == 0.0.183
 chromadb == 0.3.25   # Vector database - embedding persistence
 
+# For the LangChain document loaders
+pdfminer.six == 20221105
+
+# For HuggingFace embeddings
+sentence_transformers == 2.2.2
+
 # Linters and formatters (use the latest versions)
 pylint
 black

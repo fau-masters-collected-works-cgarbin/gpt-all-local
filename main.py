@@ -24,5 +24,5 @@ logger.set_verbose(args.verbose)
 
 # Execute the action
 if args.action == 'ingest':
-    log.info("Ingesting documents from '%s' into the vector database.", constants.DATA_DIR)
+    log.info("Ingesting documents from '%s' into the vector database", constants.DATA_DIR)
     ingest.ingest()

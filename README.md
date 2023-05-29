@@ -39,9 +39,14 @@ Ingesting data has the following steps:
 
 ## Sources
 
-Some projects I learned from.
+Most of the ingest/retrieve code is based on [privateGTP](https://github.com/imartinez/privateGPT).
 
-- [privateGTP](https://github.com/imartinez/privateGPT): Most of the ingest/retrieve code is based on this project. I dissected the code, modernized, commented, and added logging to follow it better.
+What is different:
+
+- Modernized the code, for example used `pathlib` instead of `os.path` and added proper logging instead of print statements.
+- Added more logging to understand what is going on. Use the `--verbose` flag to see the details.
+- Added a main program to run the ingest/retrieve steps.
+- Filled in `requirements.txt` with the indirect dependencies, for example, for HuggingFace transformers and LangChain document loaders.
 
 See [this file](./notes.md) for more notes collected during the development of this project.
 
