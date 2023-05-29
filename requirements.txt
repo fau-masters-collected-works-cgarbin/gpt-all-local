@@ -1,0 +1,8 @@
+# LangChain is still rapidly evolving
+# We will install the latest version and update the code as needed, to keep with the changes
+langchain
+
+# Linters and formatters
+pylint
+black
+prospector
