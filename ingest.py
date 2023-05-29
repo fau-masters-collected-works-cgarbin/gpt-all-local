@@ -50,7 +50,7 @@ LOADER_MAPPING = {
 }
 
 
-def _store_exists():
+def _store_exists() -> bool:
     """Return True if the vector store exists."""
     # Ensure that the storage directory exists
     Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
@@ -61,7 +61,7 @@ def _store_exists():
     return index.exists() and collections.exists() and embeddings.exists()
 
 
-def _file_list():
+def _file_list() -> list[Path]:
     """Return a list of files to ingest."""
     files = []
     for ext in LOADER_MAPPING:
@@ -69,7 +69,7 @@ def _file_list():
     return files
 
 
-def _load_one_file(file: Path):
+def _load_one_file(file: Path) -> Document:
     """Load a file into a document."""
     if file.suffix not in LOADER_MAPPING:
         log.error("No loader found for file '%s' - skipping it", file)
@@ -80,7 +80,7 @@ def _load_one_file(file: Path):
     return loader.load()[0]
 
 
-def _load_all_files(files):
+def _load_all_files(files: list[Path]) -> list[Document]:
     """Load all files into documents."""
     documents = []
     for file in files:
