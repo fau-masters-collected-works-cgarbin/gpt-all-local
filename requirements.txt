@@ -1,8 +1,10 @@
-# LangChain is still rapidly evolving
-# We will install the latest version and update the code as needed, to keep with the changes
-langchain
+# The tools for this project are still rapidly evolving
+# We specify the versions to avoid breaking changes
 
-# Linters and formatters
+langchain == 0.0.183
+chromadb == 0.3.25   # Vector database - embedding persistence
+
+# Linters and formatters (use the latest versions)
 pylint
 black
 prospector

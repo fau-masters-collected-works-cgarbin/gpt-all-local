@@ -1,2 +1,8 @@
 venv
 __pycache__
+
+
+# The documents we load
+data
+# The vector store created from the documents
+vector_store
