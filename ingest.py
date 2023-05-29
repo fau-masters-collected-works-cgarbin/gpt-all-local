@@ -9,6 +9,7 @@ Their code has some nice features:
 - Progress bar.
 
 """
+from pathlib import Path
 from langchain.document_loaders import (
     CSVLoader,
     EverNoteLoader,
@@ -23,9 +24,11 @@ from langchain.document_loaders import (
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.docstore.document import Documentimport
+from langchain.docstore.document import Document
+import constants
 import logger
 
+log = logger.get_logger()
 
 # Extension to loader mapping
 # This concept, of having a map, is based on privateGPT's implementation
@@ -46,10 +49,23 @@ LOADER_MAPPING = {
 }
 
 
-def ingest():
-    """Ingest all documents in the data directory into the vector database.
+def _store_exists():
+    """Return True if the vector store exists."""
+    # Ensure that the storage directory exists
+    Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
+    # Check if the vector store exists by checking if the Chroma files exist
+    index = Path(constants.STORAGE_DIR) / "index"
+    collections = Path(constants.STORAGE_DIR) / "chroma-collections.parquet"
+    embeddings = Path(constants.STORAGE_DIR) / "chroma-embeddings.parquet"
+    return index.exists() and collections.exists() and embeddings.exists()
 
-    TODO: verify what happens if the document already exists in the database.
+
+def ingest():
+    """Ingest all documents in the data directory into the vector store.
+
+    TODO: verify what happens if the document already exists in the store.
     """
-    log = logger.get_logger()
-    log.error("TODO: implement ingest()")
+    if _store_exists():
+        log.debug("The vector store already exists in '%s'.", constants.STORAGE_DIR)
+    else:
+        log.info("Creating the vector in '%s'.", constants.STORAGE_DIR)
