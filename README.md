@@ -9,9 +9,7 @@ We can divide the project into two parts: ingesting and retrieving data.
 
 These two steps are illustrated in the following diagram.
 
-![Overview](./docs/overview.drawio.png)
-
-See [this file](./notes.md) for notes collected during the development of this project.
+![Overview](./pics/overview.drawio.png)
 
 ## Preparing the environment
 
@@ -27,3 +25,11 @@ pip install -r requirements.txt
 ## Ingesting data
 
 ## Retrieving data
+
+## Sources
+
+Some projects I learned from.
+
+- [privateGTP](https://github.com/imartinez/privateGPT).
+
+See [this file](./notes.md) for more notes collected during the development of this project.
