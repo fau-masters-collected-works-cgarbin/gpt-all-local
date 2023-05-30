@@ -1,7 +1,7 @@
 """A simple logger to share logging configuration across the project.
 
 - Info and debug messages go to stdout.
-- Error messages go to stderr.
+- Error and warning messages go to stderr.
 
 Note that use a module-level logger is not the best practice. It's enough for hobbyst projects. Use the logging module
 configuration file for more complex projects (https://docs.python.org/3/howto/logging.html#configuring-logging).
@@ -47,6 +47,7 @@ def set_verbose(on: bool):
     """Set the logger to verbose mode."""
     level = logging.DEBUG if on else logging.INFO
     l = get_logger()  # noqa
+    l.setLevel(level)  # Must set at the logger and handler level
     for handler in l.handlers:
         if isinstance(handler, logging.StreamHandler) and handler.stream == sys.stdout:
             handler.setLevel(level)
