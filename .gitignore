@@ -6,3 +6,10 @@ __pycache__
 data
 # The vector store created from the documents
 vector_store
+
+# The downloaded model
+models
+# In case someone mispells the above
+model
+# In case someone puts the model in the wrong place
+*.bin

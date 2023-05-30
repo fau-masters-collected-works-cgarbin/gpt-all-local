@@ -1,13 +1,13 @@
-"""Ingest documents into the vector database.
+"""Ingest documents into the vector database (store).
+
+The goal of this step is to prepare the local data to be used by the language model (LLM). This is done by:
+
+1. Loading the documents from the data directory.
+2. Splitting the documents into chunks (to fit in the LLM context window).
+3. Extracting the embeddings for each chunk to use in similarity searches.
+4. Persisting the embeddings in the vector database.
 
 This code is heavily based on the ingest.py code from https://github.com/imartinez/privateGPT.
-
-Their code has some nice features:
-
-- A map of loaders, making it easy to add/remove loaders.
-- Parallel loading of documents.
-- Progress bar.
-
 """
 from pathlib import Path
 import time
