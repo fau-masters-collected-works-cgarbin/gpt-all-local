@@ -4,6 +4,12 @@ from chromadb.config import Settings
 DATA_DIR = "data"
 STORAGE_DIR = "vector_store"
 
+# Control the chunking
+# TODO: investigate chunking strategies
+# See, for example, https://www.pinecone.io/learn/chunking-strategies/
+CHUNK_SIZE = 500
+CHUNK_OVERLAP = 50
+
 # Model name for the HuggingFace embeddings
 # See https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2: "It maps sentences & paragraphs to a 384
 # dimensional dense vector space and can be used for tasks like clustering or semantic search."

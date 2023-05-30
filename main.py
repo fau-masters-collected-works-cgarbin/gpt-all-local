@@ -26,3 +26,5 @@ logger.set_verbose(args.verbose)
 if args.action == 'ingest':
     log.info("Ingesting documents from '%s' into the vector database", constants.DATA_DIR)
     ingest.ingest()
+elif args.action == 'retrieve':
+    log.warning("Not implemented yet")

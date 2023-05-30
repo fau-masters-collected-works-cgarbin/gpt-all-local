@@ -5,7 +5,7 @@ This project is a learning exercise on using language models (LLMs) on private d
 We can divide the project into two parts: ingesting and retrieving data.
 
 1. Ingestion: The goal is to divide data into chunks that fit into the LLM input size. Once the information is divided into chunks, we need to find the most relevant chunks to the question. This is done with a similarity function.
-1. Retrieval: Once we determined the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt that instructs the LLM to answer the question.
+1. Retrieval: Once we determined the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
 
 These two steps are illustrated in the following diagram.
 
@@ -23,7 +23,6 @@ Use the `--verbose` flag to get more details on what the program is doing behind
 
 To update the data, copy the new data into the `data` folder and run `python main.py ingest` again.
 
-
 ## Design
 
 ### Ingesting data
@@ -35,6 +34,13 @@ Ingesting data has the following steps:
 1. Create embeddings for each chunk.
 1. Save the embeddings.
 
+Future improvements:
+
+- [ ] Improve parallelism. Ideally, we want to run the entire workflow (load document, chunk, embed, persist) in parallel for each file. This requires a solution that parallelizes not only I/O-bound but also CPU-bound tasks.
+- [ ] Try sentence splitting instead of splitting by number of characters ( `NLTKTextSplitter` or `SpacyTextSplitter`).
+- [ ] Choose chunking size based on the LLM input size. It is currently hardcoded to a small number, which may affect the quality of the results. On the other hand, it saves costs on the LLM API. We need to find a balance.
+- [ ] Correctly update the store when reading documents that are already in the store. Currently, the store size grows with each run, indicating that we may be adding the same documents multiple times.
+
 ### Retrieving data
 
 ## Sources
@@ -43,7 +49,7 @@ Most of the ingest/retrieve code is based on [privateGTP](https://github.com/ima
 
 What is different:
 
-- Modernized the code, for example used `pathlib` instead of `os.path` and added proper logging instead of print statements.
+- Modernized the code. For example, it uses `pathlib` instead of `os.path` and has proper logging instead of print statements.
 - Added more logging to understand what is going on. Use the `--verbose` flag to see the details.
 - Added a main program to run the ingest/retrieve steps.
 - Filled in `requirements.txt` with the indirect dependencies, for example, for HuggingFace transformers and LangChain document loaders.
