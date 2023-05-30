@@ -27,20 +27,22 @@ To update the data, copy the new data into the `data` folder and run `python mai
 
 ### Ingesting data
 
+The goal of this stage is to make the data searchable. However, the user's question and the data contents may not match exactly. Therefore, we cannot use a simple search engine. We need to perform a similarity search, which is supported by [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/). The vector embedding is the most important part of this stage.
+
 Ingesting data has the following steps:
 
-1. Load the document.
-1. Split the document into chunks.
-1. Create embeddings for each chunk.
-1. Save the embeddings.
+1. Load the file: a document reader that matches the document type is used to load the file. At this point, we have an array of characters with the file contents (referred to as a "document" from now on). Metadata, pictures, etc., are ignored.
+1. Split the document into chunks: a document splitter divides the document into chunks of the specified size. We need to split the document to fit the context size of the model (and to send fewer tokens when using a paid model). The exact size of each chunk depends on the document splitter. For example, a sentence splitter attempts to split at the sentence level, making some chunks smaller than the specified size.
+1. Create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk: an embedding model creates a vector embedding for each chunk. This is the crucial step that allows us to find the most relevant chunks to a question.
+1. Save the embeddings into the [vector database (store)](https://www.pinecone.io/learn/vector-database/): persist all the work we did above so we don't have to repeat it in the future.
 
 Future improvements:
 
 - [ ] Improve parallelism. Ideally, we want to run the entire workflow (load document, chunk, embed, persist) in parallel for each file. This requires a solution that parallelizes not only I/O-bound but also CPU-bound tasks. The vector store must also support multiple writers.
 - [ ] Check if sentence splitters ( `NLTKTextSplitter` or `SpacyTextSplitter`) improve the answers.
 - [ ] Choose chunking size based on the LLM input (context) size. It is currently hardcoded to a small number, which may affect the quality of the results. On the other hand, it saves costs on the LLM API. We need to find a balance.
-- [ ] Correctly update the store when reading documents that are already in the store. Currently, the store size grows with each run, indicating that we may be adding the same documents multiple times.
-- [ ] Automate the ingestion process: detect if the are new of changed files and ingest them.
+- [ ] Correctly update the store when reading documents already in it. Currently, the store size grows with each run, indicating that we may be adding the same documents multiple times.
+- [ ] Automate the ingestion process: detect if there are new or changed files and ingest them.
 
 ### Retrieving data
 
