@@ -17,6 +17,11 @@ CHUNK_OVERLAP = 50
 # a CPU-only machine.
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 
+# LLM model
+MODEL_PATH = "models/ggml-gpt4all-j-v1.3-groovy.bin"
+# The context window for the model (number of tokens)
+MODEL_CONTEXT_WINDOW = 1000
+
 CHROMA_SETTINGS = Settings(
     # Configure Chroma for persistence
     # DuckDB seems to be the lightest alternative
