@@ -70,7 +70,7 @@ def _load_document(file: Path) -> Document:
     # TODO: defer loading (lazy load) until the document is actually needed (when we split it)
     document = loader.load()[0]  # loader is a generator - this forces it to read the file
     elapsed_time = time.time() - start_time
-    log.info("   Loaded in %.2f seconds", elapsed_time)
+    log.info("   Loaded document of size %s in %.2f seconds", f"{len(document.page_content):,}", elapsed_time)
     return document
 
 
@@ -104,7 +104,7 @@ def _load_all_files(files: list[Path]) -> None:
 
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     for file in files:
-        log.info("Processing file '%s', with size %s", file, f"{file.stat().st_size:,}")
+        log.info("Processing file '%s', with file size %s", file, f"{file.stat().st_size:,}")
         document = _load_document(file)
         if document is not None:
             chunks = _split_document([document])
