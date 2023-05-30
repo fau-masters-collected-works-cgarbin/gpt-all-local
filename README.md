@@ -40,6 +40,7 @@ Future improvements:
 - [ ] Try sentence splitting instead of splitting by number of characters ( `NLTKTextSplitter` or `SpacyTextSplitter`).
 - [ ] Choose chunking size based on the LLM input size. It is currently hardcoded to a small number, which may affect the quality of the results. On the other hand, it saves costs on the LLM API. We need to find a balance.
 - [ ] Correctly update the store when reading documents that are already in the store. Currently, the store size grows with each run, indicating that we may be adding the same documents multiple times.
+- [ ] Automate the ingestion process: detect if the are new of changed files and ingest them.
 
 ### Retrieving data
 

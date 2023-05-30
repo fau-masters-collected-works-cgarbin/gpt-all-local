@@ -70,7 +70,7 @@ def _load_document(file: Path) -> Document:
     # TODO: defer loading (lazy load) until the document is actually needed (when we split it)
     document = loader.load()[0]  # loader is a generator - this forces it to read the file
     elapsed_time = time.time() - start_time
-    log.info("   Loaded document of size %s in %.2f seconds", f"{len(document.page_content):,}", elapsed_time)
+    log.debug("   Loaded document of size %s in %.2f seconds", f"{len(document.page_content):,}", elapsed_time)
     return document
 
 
@@ -80,7 +80,7 @@ def _split_document(document: Document) -> list[Document]:
     splitter = RecursiveCharacterTextSplitter(chunk_size=constants.CHUNK_SIZE, chunk_overlap=constants.CHUNK_OVERLAP)
     split_doc = splitter.split_documents(document)
     elapsed_time = time.time() - start_time
-    log.info("   Split into %d chunks in %.2f seconds", len(split_doc), elapsed_time)
+    log.debug("   Split into %d chunks in %.2f seconds", len(split_doc), elapsed_time)
     return split_doc
 
 
@@ -92,7 +92,7 @@ def _add_to_store(documents: list[Document], store: any) -> None:
     start_time = time.time()
     store.add_documents(documents)
     elapsed_time = time.time() - start_time
-    log.info("   Embedded to the vector store in %.2f seconds", elapsed_time)
+    log.debug("   Embedded to the vector store in %.2f seconds", elapsed_time)
 
 
 def _load_all_files(files: list[Path]) -> None:
@@ -103,8 +103,8 @@ def _load_all_files(files: list[Path]) -> None:
                 client_settings=constants.CHROMA_SETTINGS)
 
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
-    for file in files:
-        log.info("Processing file '%s', with file size %s", file, f"{file.stat().st_size:,}")
+    for i, file in enumerate(files):
+        log.info("Processing file '%s' (%d of %d), with file size %s", file, i+1, len(files), f"{file.stat().st_size:,}")
         document = _load_document(file)
         if document is not None:
             chunks = _split_document([document])
@@ -130,5 +130,4 @@ def ingest():
 
     files = _file_list()
     log.info("Found %d files to ingest", len(files))
-    log.info("Loading files")
     _load_all_files(files)
