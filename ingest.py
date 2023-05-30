@@ -104,7 +104,8 @@ def _load_all_files(files: list[Path]) -> None:
 
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     for i, file in enumerate(files):
-        log.info("Processing file '%s' (%d of %d), with size %s bytes", file, i+1, len(files), f"{file.stat().st_size:,}")
+        log.info("Processing file '%s' (%d of %d), with size %s bytes", file, i+1, len(files),
+                 f"{file.stat().st_size:,}")
         document = _load_document(file)
         if document is not None:
             chunks = _split_document([document])
