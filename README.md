@@ -8,11 +8,11 @@ What we are trying to achieve: given a set of files on a computer (A), we want a
 
 ![What we are trying to achieve](./pics/what-we-are-trying-to-achieve.drawio.png)
 
-However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them when asking a question. To overcome that limitation, we split the files into smaller pieces, called _chunks_ and feed only the relevant ones to the model (D).
+However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them. To overcome that limitation, we split the files into smaller pieces, called _chunks_ and feed only the relevant ones to the model (D).
 
 ![Solution part 1](./pics/solution-part1-chunking.drawio.png)
 
-But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (D) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with vectors that encode semantic relationships. Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instructs the LLM to answer the question.
+But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (E) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with vectors that encode semantic relationships. Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instructs the LLM to answer the question.
 
 ![Solution part 2](.pics/../pics/solution-part2-similarity%20search.drawio.png)
 
@@ -84,6 +84,8 @@ Future improvements:
 - [ ] Add [LangChain callbacks](https://python.langchain.com/en/latest/modules/callbacks/getting_started.html) to view the steps of the retrieval process.
 - [ ] Try larger context windows.
 - [ ] Improve the prompt to answer only with what is in the local documents, e.g. "Use only information from the following documents: ...". Without this step the model seems to dream up an answer from the training data, which is not always relevant.
+- [ ] Add [moderation](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/moderation.ipynb) to filter out offensive answers.
+- [ ] Improve the answers with [reranking](https://github.com/openai/openai-cookbook/blob/2a2753e8d0566fbf21a8270ce6afaf761d7cdee5/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb#L1388): _"over-fetch our search results, and then deterministically rerank based on a modifier or set of modifiers."_.
 
 ## Improving results
 
