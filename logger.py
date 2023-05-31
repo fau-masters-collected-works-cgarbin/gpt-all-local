@@ -11,6 +11,7 @@ import logging
 import sys
 
 logger = None  # pylint: disable=invalid-name
+VERBOSE = False
 
 
 def get_logger():
@@ -45,6 +46,9 @@ def get_logger():
 
 def set_verbose(on: bool):
     """Set the logger to verbose mode."""
+    global VERBOSE  # pylint: disable=global-statement,invalid-name
+    VERBOSE = on
+
     level = logging.DEBUG if on else logging.INFO
     l = get_logger()  # noqa
     l.setLevel(level)  # Must set at the logger and handler level

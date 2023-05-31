@@ -62,6 +62,13 @@ This stage requires a model compatible with [GPT4All-J](https://huggingface.co/n
 
 See the [GPT4All website](https://gpt4all.io/index.html) for a list of GTP4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
+Future improvements:
+
+- [ ] Let the user enter the question.
+- [ ] Add [LangChain callbacks](https://python.langchain.com/en/latest/modules/callbacks/getting_started.html) to view the steps of the retrieval process.
+- [ ] Try larger context windows.
+- [ ] Improve the prompt to answer only with what is in the local documents, e.g. "Use only information from the following documents: ...". Without this step the model seems to dream up an answer from the training data, which is not always relevant.
+
 ## Sources
 
 Most of the ingest/retrieve code is based on [privateGTP](https://github.com/imartinez/privateGPT).

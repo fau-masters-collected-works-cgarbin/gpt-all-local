@@ -21,6 +21,9 @@ EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 MODEL_PATH = "models/ggml-gpt4all-j-v1.3-groovy.bin"
 # The context window for the model (number of tokens)
 MODEL_CONTEXT_WINDOW = 1000
+# Number of similar items (chunks) to retrieve from the store
+TARGET_SOURCE_CHUNKS = 4
+
 
 CHROMA_SETTINGS = Settings(
     # Configure Chroma for persistence

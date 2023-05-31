@@ -6,6 +6,7 @@ import argparse
 import constants
 import ingest
 import logger
+import retrieve
 
 
 # Parse the command line arguments
@@ -27,4 +28,8 @@ if args.action == 'ingest':
     log.info("Ingesting documents from '%s' into the vector database", constants.DATA_DIR)
     ingest.ingest()
 elif args.action == 'retrieve':
-    log.warning("Not implemented yet")
+    answer, documents = retrieve.query("What is the ambiguity problem?")
+    log.info("Answer: %s", answer)
+    for i, document in enumerate(documents):
+        log.info("Document %d of %d:\n   Text: '%s'\n   From file %s", i+1, len(documents),
+                 document.page_content[:50], document.metadata["source"])
