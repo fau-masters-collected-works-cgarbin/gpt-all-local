@@ -76,7 +76,7 @@ Retrieving data has the following steps:
 
 This stage requires a model compatible with [GPT4All-J](https://huggingface.co/nomic-ai/gpt4all-j). I suggest starting with the same model recommended by [privateGPT](https://github.com/imartinez/privateGPT): [GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB). Download and save it in the `models` folder. This model offers reasonable performance and runs on a CPU using about 4 GB of RAM.
 
-See the [GPT4All website](https://gpt4all.io/index.html) for a list of GTP4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
 Future improvements:
 
@@ -95,7 +95,7 @@ We had to make some compromises to make it run on a local machine in a reasonabl
 
 ## Sources
 
-Most of the ingest/retrieve code is based on [privateGTP](https://github.com/imartinez/privateGPT).
+Most of the ingest/retrieve code is based on [privateGPT](https://github.com/imartinez/privateGPT).
 
 What is different:
 
