@@ -2,7 +2,7 @@
 
 This project is a learning exercise on using large language models (LLMs) to retrieve information from private data, running all pieces (including the model) locally. The goal is to run an LLM on your computer to ask questions on a set of files also on your computer. The files can be any type of document, such as PDF, Word, or text files.
 
-Credit where credit is due: I based this project on [privateGPT](https://github.com/imartinez/privateGPT). I remimplemented the pieces to understand how they work. See more in the [sources](#sources) section.
+Credit where credit is due: I based this project on [privateGPT](https://github.com/imartinez/privateGPT). I reimplemented the pieces to understand how they work. See more in the [sources](#sources) section.
 
 What we are trying to achieve: given a set of files on a computer (A), we want a large language model (B) running on that computer to answer questions (C) on them.
 
@@ -12,7 +12,7 @@ However, we cannot feed the files directly to the model. Large language models (
 
 ![Solution part 1](./pics/solution-part1-chunking.drawio.png)
 
-But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (D) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with with vectors that encode semantic relantionships. Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instruct the LLM to answer the question.
+But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (D) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with vectors that encode semantic relationships. Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instructs the LLM to answer the question.
 
 ![Solution part 2](.pics/../pics/solution-part2-similarity%20search.drawio.png)
 
@@ -20,8 +20,8 @@ Now we have all the pieces we need.
 
 We can divide the implementation into two parts: ingesting and retrieving data.
 
-1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We also need to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question. Because chunking and embedding takes time, we want to do that only once, so we save the results in a [vector store](https://www.pinecone.io/learn/vector-database/) (database).
-1. Retrieval: Given a user question, we use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determined the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
+1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We also need to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question. Because chunking and embedding take time, we want to do that only once, so we save the results in a [vector store](https://www.pinecone.io/learn/vector-database/) (database).
+1. Retrieval: Given a user question, we use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determine the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
 
 These two steps are illustrated in the following diagram.
 
@@ -84,6 +84,14 @@ Future improvements:
 - [ ] Add [LangChain callbacks](https://python.langchain.com/en/latest/modules/callbacks/getting_started.html) to view the steps of the retrieval process.
 - [ ] Try larger context windows.
 - [ ] Improve the prompt to answer only with what is in the local documents, e.g. "Use only information from the following documents: ...". Without this step the model seems to dream up an answer from the training data, which is not always relevant.
+
+## Improving results
+
+We had to make some compromises to make it run on a local machine in a reasonable amount of time.
+
+- We use a small model. This one is hard to change. The model has to run on a CPU and fit in memory.
+- We use a small context window. We can increase the context window if we wait longer for the results from the model.
+- We use a small embedding size. We can increase the embedding size if we wait longer for the ingestion process.
 
 ## Sources
 
