@@ -86,6 +86,7 @@ Future improvements:
 - [ ] Improve the prompt to answer only with what is in the local documents, e.g. "Use only information from the following documents: ...". Without this step the model seems to dream up an answer from the training data, which is not always relevant.
 - [ ] Add [moderation](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/moderation.ipynb) to filter out offensive answers.
 - [ ] Improve the answers with [reranking](https://github.com/openai/openai-cookbook/blob/2a2753e8d0566fbf21a8270ce6afaf761d7cdee5/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb#L1388): _"over-fetch our search results, and then deterministically rerank based on a modifier or set of modifiers."_.
+- [ ] Try different [chain types](https://python.langchain.com/en/latest/modules/chains/index_examples/vector_db_qa.html#chain-type) (related to the previous point).
 
 ## Improving results
 
@@ -94,6 +95,7 @@ We had to make some compromises to make it run on a local machine in a reasonabl
 - We use a small model. This one is hard to change. The model has to run on a CPU and fit in memory.
 - We use a small context window. We can increase the context window if we wait longer for the results from the model.
 - We use a small embedding size. We can increase the embedding size if we wait longer for the ingestion process.
+- Keep everything the same and try different [chains](https://python.langchain.com/en/latest/modules/chains/index_examples/qa_with_sources.html).
 
 ## Sources
 

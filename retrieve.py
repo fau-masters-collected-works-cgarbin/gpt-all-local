@@ -53,6 +53,7 @@ def _prepare() -> None:
     vs_retriever = vector_store.as_retriever(search_kwargs={"k": constants.TARGET_SOURCE_CHUNKS})
     log.debug("   Loaded vector store from '%s'", constants.STORAGE_DIR)
     global _RETRIEVER  # pylint: disable=global-statement
+    # TODO: test other options for `chain_type`
     _RETRIEVER = RetrievalQA.from_chain_type(llm=_MODEL, chain_type="stuff", retriever=vs_retriever,
                                              return_source_documents=logger.VERBOSE)
 
@@ -62,7 +63,7 @@ def query(user_input: str) -> tuple[str, list[str]]:
     _prepare()
 
     log = logger.get_logger()
-    log.info("Querying the local data with '%s'", query)
+    log.info("Querying the local data with '%s'", user_input)
     query_result = _RETRIEVER(user_input)
     answer, source_documents = query_result["result"], query_result["source_documents"] if logger.VERBOSE else []
     return answer, source_documents
