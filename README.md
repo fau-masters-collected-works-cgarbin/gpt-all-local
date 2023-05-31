@@ -1,15 +1,31 @@
-# Using LLMs on private data
+# Using LLMs on private data, all locally
 
-This project is a learning exercise on using large language models (LLMs) to retrieve information from private data. The goal is to use an LLM to ask questions on a set of files residing on the local computer. The files can be any type of document, such as PDF, Word, or text files.
+This project is a learning exercise on using large language models (LLMs) to retrieve information from private data, running all pieces (including the model) locally. The goal is to run an LLM on your computer to ask questions on a set of files also on your computer. The files can be any type of document, such as PDF, Word, or text files.
 
-We can divide the project into two parts: ingesting and retrieving data.
+Credit where credit is due: I based this project on [privateGPT](https://github.com/imartinez/privateGPT). I remimplemented the pieces to understand how they work. See more in the [sources](#sources) section.
 
-1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We also need to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question.
-1. Retrieval: Given a user question, we use a similarity function to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determined the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
+What we are trying to achieve: given a set of files on a computer (A), we want a large language model (B) running on that computer to answer questions (C) on them.
+
+![What we are trying to achieve](./pics/what-we-are-trying-to-achieve.drawio.png)
+
+However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them when asking a question. To overcome that limitation, we split the files into smaller pieces, called _chunks_ and feed only the relevant ones to the model (D).
+
+![Solution part 1](./pics/solution-part1-chunking.drawio.png)
+
+But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (D) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with with vectors that encode semantic relantionships. Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instruct the LLM to answer the question.
+
+![Solution part 2](.pics/../pics/solution-part2-similarity%20search.drawio.png)
+
+Now we have all the pieces we need.
+
+We can divide the implementation into two parts: ingesting and retrieving data.
+
+1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We also need to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question. Because chunking and embedding takes time, we want to do that only once, so we save the results in a [vector store](https://www.pinecone.io/learn/vector-database/) (database).
+1. Retrieval: Given a user question, we use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determined the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
 
 These two steps are illustrated in the following diagram.
 
-![Overview](./pics/overview.drawio.png)
+![Ingestion and retrieval](./pics/ingest-retrieve.drawio.png)
 
 ## How to use this project
 
