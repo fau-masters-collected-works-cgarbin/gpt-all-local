@@ -28,6 +28,7 @@ if args.action == 'ingest':
     log.info("Ingesting documents from '%s' into the vector database", constants.DATA_DIR)
     ingest.ingest()
 elif args.action == 'retrieve':
+    retrieve.check_requisites()
     while (question := input("Enter a question or 'exit': ")) != "exit":
         answer, documents = retrieve.query(question)
         log.info("Chunks used to answer the question:")

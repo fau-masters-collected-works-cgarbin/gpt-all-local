@@ -64,7 +64,14 @@ Future improvements:
 
 ### Retrieving data
 
-Command: `python main.py retrieve [--verbose]`
+This stage requires a model compatible with [GPT4All-J](https://huggingface.co/nomic-ai/gpt4all-j). I suggest starting with the same model recommended by [privateGPT](https://github.com/imartinez/privateGPT): [GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). This model offers reasonable performance and runs on a CPU using about 4 GB of RAM. See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+
+
+1. Create a folder named `models`.
+1. Click [here to download GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB).
+1. Copy the model to the `models` folder. 
+
+After the model has been downloaded: `python main.py retrieve [--verbose]`
 
 The goal of this stage is to retrieve information from the local data. We do that by fetching the most relevant chunks from the vector store and combining them with the user's question and a prompt. The prompt instructs the language model (LLM) to answer the question.
 
@@ -73,10 +80,6 @@ Retrieving data has the following steps:
 1. Find the most relevant chunks: the vector store is queried to find the most relevant chunks to the question.
 1. Combine the chunks with the question and a prompt: the chunks are combined with the question and a prompt. The prompt instructs the LLM to answer the question.
 1. Send the combined text to the LLM: the combined text is sent to the LLM to get the answer.
-
-This stage requires a model compatible with [GPT4All-J](https://huggingface.co/nomic-ai/gpt4all-j). I suggest starting with the same model recommended by [privateGPT](https://github.com/imartinez/privateGPT): [GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB). Download and save it in the `models` folder. This model offers reasonable performance and runs on a CPU using about 4 GB of RAM.
-
-See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
 Future improvements:
 

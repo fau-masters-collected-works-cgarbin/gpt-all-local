@@ -23,7 +23,6 @@ _EMBEDDINGS = None
 _MODEL = None
 _RETRIEVER = None
 
-
 def _prepared() -> bool:
     """Check if the environment is prepared for the retrieval."""
     return _EMBEDDINGS is not None and _RETRIEVER is not None and _MODEL is not None
@@ -42,9 +41,9 @@ def _prepare() -> None:
     log.debug("   Loaded embeddings model '%s'", constants.EMBEDDINGS_MODEL_NAME)
 
     global _MODEL  # pylint: disable=global-statement
-    _MODEL = GPT4All(model=constants.MODEL_PATH, n_ctx=constants.MODEL_CONTEXT_WINDOW, backend='gptj',
+    _MODEL = GPT4All(model=str(constants.MODEL), n_ctx=constants.MODEL_CONTEXT_WINDOW, backend='gptj',
                      verbose=logger.VERBOSE)
-    log.debug("   Loaded language model from '%s' with context window %d", constants.MODEL_PATH,
+    log.debug("   Loaded language model from '%s' with context window %d", constants.MODEL,
               constants.MODEL_CONTEXT_WINDOW)
 
     # Build a retriever from the vector store, embeddings, and model
@@ -55,7 +54,15 @@ def _prepare() -> None:
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
     _RETRIEVER = RetrievalQA.from_chain_type(llm=_MODEL, chain_type="stuff", retriever=vs_retriever,
-                                             return_source_documents=logger.VERBOSE)
+                                             return_source_documents=logger.VERBOSE, verbose=logger.VERBOSE)
+
+
+def check_requisites() -> None:
+    """Check if the model has been downloaded."""
+    if not constants.MODEL.is_file():
+        log = logger.get_logger()
+        log.error(f"Cannot find the model at '{constants.MODEL}'. Please download it first (see the README).")
+        exit(1)
 
 
 def query(user_input: str) -> tuple[str, list[str]]:
@@ -67,3 +74,14 @@ def query(user_input: str) -> tuple[str, list[str]]:
     query_result = _RETRIEVER(user_input)
     answer, source_documents = query_result["result"], query_result["source_documents"] if logger.VERBOSE else []
     return answer, source_documents
+
+
+# Use this to debug the code
+# Modify the question and start under the debugger
+if __name__ == "__main__":
+    logger.set_verbose(True)
+    QUESTION = "What is a prompt"
+    answer, documents = query(QUESTION)
+    print(f"Question: {QUESTION}")
+    print(f"Answer: {answer}")
+    print(f"Documents: {documents}")

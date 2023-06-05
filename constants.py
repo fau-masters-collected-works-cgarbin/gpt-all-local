@@ -1,4 +1,5 @@
 """Constants used throughout the project."""
+from pathlib import Path
 from chromadb.config import Settings
 
 DATA_DIR = "data"
@@ -18,7 +19,9 @@ CHUNK_OVERLAP = 50
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 
 # LLM model
-MODEL_PATH = "models/ggml-gpt4all-j-v1.3-groovy.bin"
+MODEL_DIR = "models"
+MODEL_FILE = "ggml-gpt4all-j-v1.3-groovy.bin"
+MODEL = Path(MODEL_DIR)  / Path(MODEL_FILE)  # use pathlib to work on Windows and Linux
 # The context window for the model (number of tokens)
 MODEL_CONTEXT_WINDOW = 1000
 # Number of similar items (chunks) to retrieve from the store
