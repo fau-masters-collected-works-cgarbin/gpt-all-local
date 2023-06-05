@@ -23,6 +23,7 @@ _EMBEDDINGS = None
 _MODEL = None
 _RETRIEVER = None
 
+
 def _prepared() -> bool:
     """Check if the environment is prepared for the retrieval."""
     return _EMBEDDINGS is not None and _RETRIEVER is not None and _MODEL is not None
