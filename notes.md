@@ -51,7 +51,7 @@ Items to consider when selecting a solution:
    1. Resistance to offensive language attacks (generate offensive language).
    1. Resistance to model stealing attacks (steal the model).
 
-## Investigations
+## Vendors, frameworks
 
 ### Azure
 
@@ -70,6 +70,8 @@ Technical references:
 
 ### Google
 
+- [Vertex AI matching engine](https://cloud.google.com/vertex-ai/docs/matching-engine/overview)
+
 ### OpenAI
 
 - [The "query your data" tutorial](https://github.com/openai/openai-cookbook/tree/main/apps/chatbot-kickstarter).
@@ -84,6 +86,10 @@ Technical references:
   - Seems to be older than the "knowledge retrieval" tutorial.
 - [Using Vector Databases for Embeddings Search](https://github.com/openai/openai-cookbook/blob/main/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb).
   - Shows how to use different embedding databases.
+
+### Haystack
+
+- [haystack](https://haystack.deepset.ai/): _"Apply the latest NLP technology to your own data with the use of Haystack's pipeline architecture"._
 
 ### LangChain
 
