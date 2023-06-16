@@ -33,6 +33,8 @@ elif args.action == 'retrieve':
         answer, documents = retrieve.query(question)
         log.info("Chunks used to answer the question:")
         for i, document in enumerate(documents):
-            log.info("Chunk %d of %d:\n   Text: '%s...'\n   From file %s", i+1, len(documents),
-                     document.page_content[:80], document.metadata["source"])
+            log.info("Chunk %d of %d, size: %d\nText: '%s [...] %s'\n   From file %s",
+                     i+1, len(documents), len(document.page_content),
+                     document.page_content[:50], document.page_content[-50:],
+                     document.metadata["source"])
         log.info("\nAnswer: %s", answer)
