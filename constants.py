@@ -22,10 +22,11 @@ EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 MODEL_DIR = "models"
 MODEL_FILE = "ggml-gpt4all-j-v1.3-groovy.bin"
 MODEL = Path(MODEL_DIR)  / Path(MODEL_FILE)  # use pathlib to work on Windows and Linux
-# The context window for the model (number of tokens)
-MODEL_CONTEXT_WINDOW = 1000
 # Number of similar items (chunks) to retrieve from the store
 TARGET_SOURCE_CHUNKS = 4
+# The context window for the model (number of tokens)
+# Should fit the chunks we fetch and the question we ask
+MODEL_CONTEXT_WINDOW = CHUNK_SIZE * TARGET_SOURCE_CHUNKS + 200
 
 
 CHROMA_SETTINGS = Settings(
