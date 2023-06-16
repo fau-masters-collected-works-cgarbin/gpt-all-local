@@ -70,6 +70,16 @@ def _load_document(file: Path) -> Document:
     # TODO: defer loading (lazy load) until the document is actually needed (when we split it)
     document = loader.load()[0]  # loader is a generator - this forces it to read the file
     elapsed_time = time.time() - start_time
+
+    # TODO: improve PDF loader
+    # This is a cludge to improve what we get from the PDF loader. There are several PDF loaders, with different
+    # capabilities. The one we are using is the simplest one, and it doesn't do a good job with some PDFs (mainly
+    # because we are using all its features -- see https://stackoverflow.com/a/69151177).
+    # In the future we should call the PDF loader directly, not through LangChain, to better control how it loads
+    # the document.
+    # This joins words that were split at the end of a line (e.g. "word-" + "\n" + "word" -> "wordword")
+    document.page_content = document.page_content.replace("-\n", "")
+
     log.debug("   Loaded document with %s characters in %.2f seconds", f"{len(document.page_content):,}", elapsed_time)
     return document
 
@@ -78,16 +88,21 @@ def _split_document(document: Document) -> list[Document]:
     """Split a document into chunks."""
     start_time = time.time()
     splitter = RecursiveCharacterTextSplitter(chunk_size=constants.CHUNK_SIZE, chunk_overlap=constants.CHUNK_OVERLAP)
-    split_doc = splitter.split_documents(document)
+    split_doc = splitter.split_documents([document])  # convert to list to satisfy the interface
     elapsed_time = time.time() - start_time
-    log.debug("   Split into %d chunks in %.2f seconds", len(split_doc), elapsed_time)
+    num_chunks = len(split_doc)
+    log.debug("   Split into %d chunks in %.2f seconds", num_chunks, elapsed_time)
+    log.debug("   Requested chunk size: %d, average chunk size: %.2f", constants.CHUNK_SIZE, len(document.page_content)/num_chunks)
     return split_doc
 
 
 def _add_to_store(documents: list[Document], store: any) -> None:
     """Add documents to the vector store.
 
-    Adding to the store also create the embeddings.
+    This function adds the documents as they are to the store. Documents must be already split
+    into chunks, if so desired.
+
+    Adding to the store also creates the embeddings.
     """
     start_time = time.time()
     store.add_documents(documents)
@@ -108,7 +123,7 @@ def _load_all_files(files: list[Path]) -> None:
                  f"{file.stat().st_size:,}")
         document = _load_document(file)
         if document is not None:
-            chunks = _split_document([document])
+            chunks = _split_document(document)
             _add_to_store(chunks, db)
 
     # Save once at the end to avoid saving multiple times
@@ -132,3 +147,9 @@ def ingest():
     files = _file_list()
     log.info("Found %d files to ingest", len(files))
     _load_all_files(files)
+
+# Use this to debug the code
+# Modify the code and start under the debugger
+if __name__ == "__main__":
+    logger.set_verbose(True)
+    ingest()
