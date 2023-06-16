@@ -37,4 +37,4 @@ elif args.action == 'retrieve':
                      i+1, len(documents), len(document.page_content),
                      document.page_content[:50], document.page_content[-50:],
                      document.metadata["source"])
-        log.info("\nAnswer: %s", answer)
+        print(f"\n\nAnswer: {answer}")
