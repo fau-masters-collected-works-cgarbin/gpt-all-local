@@ -29,10 +29,10 @@ if args.action == 'ingest':
     ingest.ingest()
 elif args.action == 'retrieve':
     retrieve.check_requisites()
-    while (question := input("Enter a question or 'exit': ")) != "exit":
+    while (question := input("\nEnter a question or 'exit': ")) != "exit":
         answer, documents = retrieve.query(question)
         log.info("Chunks used to answer the question:")
         for i, document in enumerate(documents):
             log.info("Chunk %d of %d:\n   Text: '%s...'\n   From file %s", i+1, len(documents),
                      document.page_content[:80], document.metadata["source"])
-        log.info("Answer: %s", answer)
+        log.info("\nAnswer: %s", answer)
