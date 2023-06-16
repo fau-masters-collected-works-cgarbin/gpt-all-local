@@ -42,8 +42,8 @@ def _prepare() -> None:
     log.debug("   Loaded embeddings model '%s'", constants.EMBEDDINGS_MODEL_NAME)
 
     global _MODEL  # pylint: disable=global-statement
-    _MODEL = GPT4All(model=str(constants.MODEL), n_ctx=constants.MODEL_CONTEXT_WINDOW, backend='gptj',
-                     verbose=logger.VERBOSE)
+    _MODEL = GPT4All(model=str(constants.MODEL), n_ctx=constants.MODEL_CONTEXT_WINDOW, n_batch=constants.MODEL_N_BATCH, 
+                     backend='gptj', verbose=logger.VERBOSE)
     log.debug("   Loaded language model from '%s' with context window %d", constants.MODEL,
               constants.MODEL_CONTEXT_WINDOW)
 
