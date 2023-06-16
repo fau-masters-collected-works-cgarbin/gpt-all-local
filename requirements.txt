@@ -11,7 +11,7 @@ pdfminer.six == 20221105
 sentence_transformers == 2.2.2
 
 # For the LLM
-gpt4all == 0.2.3
+gpt4all == 0.3.4
 
 # Linters and formatters (use the latest versions)
 pylint
