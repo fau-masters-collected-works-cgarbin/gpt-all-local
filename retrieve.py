@@ -55,7 +55,7 @@ def _prepare() -> None:
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
     _RETRIEVER = RetrievalQA.from_chain_type(llm=_MODEL, chain_type="stuff", retriever=vs_retriever,
-                                             return_source_documents=logger.VERBOSE, verbose=logger.VERBOSE)
+                                             return_source_documents=logger.VERBOSE)
 
 
 def check_requisites() -> None:
