@@ -21,7 +21,7 @@ Now we have all the pieces we need.
 We can divide the implementation into two parts: ingesting and retrieving data.
 
 1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We also need to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question. Because chunking and embedding take time, we want to do that only once, so we save the results in a [vector store](https://www.pinecone.io/learn/vector-database/) (database).
-1. Retrieval: Given a user question, we use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determine the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
+2. Retrieval: Given a user question, we use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determine the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
 
 These two steps are illustrated in the following diagram.
 
@@ -42,6 +42,8 @@ To update the data, copy the new data into the `data` folder and run `python mai
 ## Design
 
 ### Ingesting data
+
+If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
 Command: `python main.py ingest [--verbose]`
 
@@ -64,14 +66,9 @@ Future improvements:
 
 ### Retrieving data
 
-This stage requires a model compatible with [GPT4All-J](https://huggingface.co/nomic-ai/gpt4all-j). I suggest starting with the same model recommended by [privateGPT](https://github.com/imartinez/privateGPT): [GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). This model offers reasonable performance and runs on a CPU using about 4 GB of RAM. See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
-
-1. Create a folder named `models`.
-1. Click [here to download GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB).
-1. Copy the model to the `models` folder. 
-
-After the model has been downloaded: `python main.py retrieve [--verbose]`
+Command: `python main.py retrieve [--verbose]`
 
 The goal of this stage is to retrieve information from the local data. We do that by fetching the most relevant chunks from the vector store and combining them with the user's question and a prompt. The prompt instructs the language model (LLM) to answer the question.
 
@@ -116,6 +113,8 @@ See [this file](./notes.md) for more notes collected during the development of t
 
 This is a one-time step. If you have already done this, just activate the virtual environment with `source venv/bin/activate`.
 
+### Python environment
+
 Run the following commands to create a virtual environment and install the required packages.
 
 ```bash
@@ -124,3 +123,11 @@ source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+### Model
+
+I suggest starting with the same model recommended by [privateGPT](https://github.com/imartinez/privateGPT), _GPT4All-J v1.3-groovy_. This model offers reasonable performance and runs on a CPU using about 4 GB of RAM. See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+
+1. Create a folder named `models`.
+1. Click [here to download GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB).
+1. Copy the model to the `models` folder. 
