@@ -31,8 +31,8 @@ These two steps are illustrated in the following diagram.
 
 If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
-1. Copy the data you want to use into the `data` folder.
-1. Run `python main.py ingest` to ingest the data into the vector store.
+1. Copy the files you want to use into the `data` folder.
+1. Run `python main.py ingest` to ingest the files into the vector store.
 1. Run `python main.py retrieve` to retrieve data from the vector store. It will prompt you for a question.
 
 Use the `--verbose` flag to get more details on what the program is doing behind the scenes.
