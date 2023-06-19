@@ -58,6 +58,7 @@ Ingesting data has the following steps:
 
 Future improvements:
 
+- [ ] More intelligent document parsing. For example, do not mix figure captions with the section text; do not parse the reference section (alternatively, replace the inline references with the actual reference text).
 - [ ] Improve parallelism. Ideally, we want to run the entire workflow (load document, chunk, embed, persist) in parallel for each file. This requires a solution that parallelizes not only I/O-bound but also CPU-bound tasks. The vector store must also support multiple writers.
 - [ ] Try different [chunking strategies](https://www.pinecone.io/learn/chunking-strategies/), e.g. check if sentence splitters ( `NLTKTextSplitter` or `SpacyTextSplitter`) improve the answers.
 - [ ] Choose chunking size based on the LLM input (context) size. It is currently hardcoded to a small number, which may affect the quality of the results. On the other hand, it saves costs on the LLM API. We need to find a balance.
