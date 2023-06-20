@@ -145,7 +145,7 @@ def ingest(directory: str = constants.DATA_DIR):
     Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
 
     files = _file_list(directory)
-    log.info("Found %d files to ingest", len(files))
+    log.info("Found %d files to ingest in %s", len(files), directory)
     _load_all_files(files)
 
 

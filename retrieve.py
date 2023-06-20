@@ -11,6 +11,7 @@ NOTE: This code assumes that the model has already been downloaded. See the READ
 
 This code is heavily based on the ingest.py code from https://github.com/imartinez/privateGPT.
 """
+import sys
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import GPT4All
@@ -18,7 +19,7 @@ from langchain.vectorstores import Chroma
 import constants
 import logger
 
-# Set these variables only when explicilty asked to do so to not waste time and resources
+# Set these variables only when explicitly asked to do so to not waste time and resources
 _EMBEDDINGS = None
 _MODEL = None
 _RETRIEVER = None
@@ -42,7 +43,7 @@ def _prepare() -> None:
     log.debug("   Loaded embeddings model '%s'", constants.EMBEDDINGS_MODEL_NAME)
 
     global _MODEL  # pylint: disable=global-statement
-    _MODEL = GPT4All(model=str(constants.MODEL), n_ctx=constants.MODEL_CONTEXT_WINDOW, n_batch=constants.MODEL_N_BATCH, 
+    _MODEL = GPT4All(model=str(constants.MODEL), n_ctx=constants.MODEL_CONTEXT_WINDOW, n_batch=constants.MODEL_N_BATCH,
                      backend='gptj', verbose=logger.VERBOSE)
     log.debug("   Loaded language model from '%s' with context window %d", constants.MODEL,
               constants.MODEL_CONTEXT_WINDOW)
@@ -62,8 +63,8 @@ def check_requisites() -> None:
     """Check if the model has been downloaded."""
     if not constants.MODEL.is_file():
         log = logger.get_logger()
-        log.error(f"Cannot find the model at '{constants.MODEL}'. Please download it first (see the README).")
-        exit(1)
+        log.error("Cannot find the model at '%s'. Please download it first (see the README).", constants.MODEL)
+        sys.exit(1)
 
 
 def query(user_input: str) -> tuple[str, list[str]]:
