@@ -50,15 +50,15 @@ LOADER_MAPPING = {
 }
 
 
-def _file_list() -> list[Path]:
+def _file_list(directory: str) -> list[Path]:
     """Return a list of files to ingest."""
     files = []
     for ext in LOADER_MAPPING:
-        files.extend(Path(constants.DATA_DIR).rglob(f"*{ext}"))
+        files.extend(Path(directory).rglob(f"*{ext}"))
     return files
 
 
-def _load_document(file: Path) -> Document:
+def _load_document(file: Path) -> Document | None:
     """Load a file into a document."""
     if file.suffix not in LOADER_MAPPING:
         log.error("No loader found for file '%s' - skipping it", file)
@@ -72,7 +72,7 @@ def _load_document(file: Path) -> Document:
     elapsed_time = time.time() - start_time
 
     # TODO: improve PDF loader
-    # This is a cludge to improve what we get from the PDF loader. There are several PDF loaders, with different
+    # This is a kludge to improve what we get from the PDF loader. There are several PDF loaders, with different
     # capabilities. The one we are using is the simplest one, and it doesn't do a good job with some PDFs (mainly
     # because we are using all its features -- see https://stackoverflow.com/a/69151177).
     # In the future we should call the PDF loader directly, not through LangChain, to better control how it loads
@@ -135,8 +135,8 @@ def _load_all_files(files: list[Path]) -> None:
     log.info("Persisted the vector store in %.2f seconds", elapsed_time)
 
 
-def ingest():
-    """Ingest all documents in the data directory into the vector store.
+def ingest(directory: str = constants.DATA_DIR):
+    """Ingest all documents in a directory into the vector store.
 
     TODO: verify what happens if the document already exists in the store, i.e. what happens if we call "ingest"
     multiple times and some of the files have already been ingested.
@@ -144,9 +144,10 @@ def ingest():
     # Ensure that the storage directory exists
     Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
 
-    files = _file_list()
+    files = _file_list(directory)
     log.info("Found %d files to ingest", len(files))
     _load_all_files(files)
+
 
 # Use this to debug the code
 # Modify the code and start under the debugger
