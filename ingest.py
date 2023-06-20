@@ -23,11 +23,10 @@ from langchain.document_loaders import (
     UnstructuredWordDocumentLoader,
 )
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.docstore.document import Document
 import constants
 import logger
+import vector_store
 
 log = logger.get_logger()
 
@@ -112,10 +111,8 @@ def _add_to_store(documents: list[Document], store: any) -> None:
 
 def _load_all_files(files: list[Path]) -> None:
     """Load all files into documents."""
-    embeddings = HuggingFaceEmbeddings(model_name=constants.EMBEDDINGS_MODEL_NAME)
-    # TODO: investigate how to correctly update the store when processing documents that already exist in the store
-    db = Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=embeddings,
-                client_settings=constants.CHROMA_SETTINGS)
+    # TODO: investigate how to correctly update the store when processing documents that already exist in it
+    db = vector_store.store()
 
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     for i, file in enumerate(files):

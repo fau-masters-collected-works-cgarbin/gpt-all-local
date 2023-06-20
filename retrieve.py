@@ -13,21 +13,19 @@ This code is heavily based on the ingest.py code from https://github.com/imartin
 """
 import sys
 from langchain.chains import RetrievalQA
-from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import GPT4All
-from langchain.vectorstores import Chroma
 import constants
 import logger
+import vector_store
 
 # Set these variables only when explicitly asked to do so to not waste time and resources
-_EMBEDDINGS = None
 _MODEL = None
 _RETRIEVER = None
 
 
 def _prepared() -> bool:
     """Check if the environment is prepared for the retrieval."""
-    return _EMBEDDINGS is not None and _RETRIEVER is not None and _MODEL is not None
+    return _RETRIEVER is not None and _MODEL is not None
 
 
 def _prepare() -> None:
@@ -38,10 +36,6 @@ def _prepare() -> None:
     log = logger.get_logger()
     log.info("Preparing the environment for the retrieval")
 
-    global _EMBEDDINGS  # pylint: disable=global-statement
-    _EMBEDDINGS = HuggingFaceEmbeddings(model_name=constants.EMBEDDINGS_MODEL_NAME)
-    log.debug("   Loaded embeddings model '%s'", constants.EMBEDDINGS_MODEL_NAME)
-
     global _MODEL  # pylint: disable=global-statement
     _MODEL = GPT4All(model=str(constants.MODEL), n_ctx=constants.MODEL_CONTEXT_WINDOW, n_batch=constants.MODEL_N_BATCH,
                      backend='gptj', verbose=logger.VERBOSE)
@@ -49,9 +43,8 @@ def _prepare() -> None:
               constants.MODEL_CONTEXT_WINDOW)
 
     # Build a retriever from the vector store, embeddings, and model
-    vector_store = Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=_EMBEDDINGS,
-                          client_settings=constants.CHROMA_SETTINGS)
-    vs_retriever = vector_store.as_retriever(search_kwargs={"k": constants.TARGET_SOURCE_CHUNKS})
+    db = vector_store.store()
+    vs_retriever = db.as_retriever(search_kwargs={"k": constants.TARGET_SOURCE_CHUNKS})
     log.debug("   Loaded vector store from '%s'", constants.STORAGE_DIR)
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
