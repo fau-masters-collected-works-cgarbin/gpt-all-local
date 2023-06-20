@@ -111,25 +111,37 @@ def _add_to_store(documents: list[Document], store: any) -> None:
 
 def _load_all_files(files: list[Path]) -> None:
     """Load all files into documents."""
-    # TODO: investigate how to correctly update the store when processing documents that already exist in it
     db = vector_store.store()
 
+    files_in_store = vector_store.files_in_store(db)
+    log.debug("Found these files in the store: %s", files_in_store)
+
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
+    processed_files = 0
     for i, file in enumerate(files):
         log.info("Processing file '%s' (%d of %d), with size %s bytes", file, i+1, len(files),
                  f"{file.stat().st_size:,}")
+
+        # TODO: investigate how to correctly update the store when processing documents that already exist in it
+        # The file may have changed since the last time we processed it
+        if str(file) in files_in_store:
+            log.info("   Skipping because it is already in the store")
+            continue
+
         document = _load_document(file)
         if document is not None:
             chunks = _split_document(document)
             _add_to_store(chunks, db)
+            processed_files += 1
 
     # Save once at the end to avoid saving multiple times
     # TODO: investigate if we can save one document at a time, to cover the case where the process is interrupted and
     # we lose all the work, and to save memory (not have all documents in memory at the same time)
-    start_time = time.time()
-    db.persist()
-    elapsed_time = time.time() - start_time
-    log.info("Persisted the vector store in %.2f seconds", elapsed_time)
+    if processed_files > 0:
+        start_time = time.time()
+        db.persist()
+        elapsed_time = time.time() - start_time
+        log.info("Persisted the vector store in %.2f seconds", elapsed_time)
 
 
 def ingest(directory: str = constants.DATA_DIR):
