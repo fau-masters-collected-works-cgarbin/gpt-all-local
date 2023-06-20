@@ -113,9 +113,6 @@ def _load_all_files(files: list[Path]) -> None:
     """Load all files into documents."""
     db = vector_store.store()
 
-    files_in_store = vector_store.files_in_store(db)
-    log.debug("Found these files in the store: %s", files_in_store)
-
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     processed_files = 0
     for i, file in enumerate(files):
@@ -124,7 +121,7 @@ def _load_all_files(files: list[Path]) -> None:
 
         # TODO: investigate how to correctly update the store when processing documents that already exist in it
         # The file may have changed since the last time we processed it
-        if str(file) in files_in_store:
+        if vector_store.file_stored(str(file)):
             log.info("   Skipping because it is already in the store")
             continue
 
@@ -139,7 +136,7 @@ def _load_all_files(files: list[Path]) -> None:
     # we lose all the work, and to save memory (not have all documents in memory at the same time)
     if processed_files > 0:
         start_time = time.time()
-        db.persist()
+        vector_store.persist()
         elapsed_time = time.time() - start_time
         log.info("Persisted the vector store in %.2f seconds", elapsed_time)
 
