@@ -13,6 +13,10 @@ sentence_transformers == 2.2.2
 # For the LLM
 gpt4all == 0.3.4
 
+# These are supporting tools
+# We don't need the exact minor version
+streamlit ~= 1.23
+
 # Linters and formatters (use the latest versions)
 pylint
 black

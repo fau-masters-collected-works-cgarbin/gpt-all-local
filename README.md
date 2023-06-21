@@ -31,6 +31,13 @@ These two steps are illustrated in the following diagram.
 
 If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
+There are two ways to use this project:
+
+1. [Command line interface](#command-line-interface)
+1. [Streamlit app (somewhat experimental)](#streamlit-app)
+
+### Command line interface
+
 1. Copy the files you want to use into the `data` folder.
 1. Run `python main.py ingest` to ingest the files into the vector store.
 1. Run `python main.py retrieve` to retrieve data from the vector store. It will prompt you for a question.
@@ -38,6 +45,10 @@ If you haven't done so yet, [prepare the environment](#preparing-the-environment
 Use the `--verbose` flag to get more details on what the program is doing behind the scenes.
 
 To update the data, copy the new data into the `data` folder and run `python main.py ingest` again.
+
+### Streamlit app
+
+Run `streamlit run app.py`. It will open the app in a browser window.
 
 ## Design
 
@@ -131,4 +142,4 @@ I suggest starting with the same model recommended by [privateGPT](https://githu
 
 1. Create a folder named `models`.
 1. Click [here to download GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB).
-1. Copy the model to the `models` folder. 
+1. Copy the model to the `models` folder.
