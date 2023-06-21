@@ -49,7 +49,7 @@ def _prepare() -> None:
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
     _RETRIEVER = RetrievalQA.from_chain_type(llm=_MODEL, chain_type="stuff", retriever=vs_retriever,
-                                             return_source_documents=logger.VERBOSE)
+                                             return_source_documents=True)
 
 
 def check_requisites() -> None:
@@ -67,7 +67,7 @@ def query(user_input: str) -> tuple[str, list[str]]:
     log = logger.get_logger()
     log.info("Querying the local data with '%s'", user_input)
     query_result = _RETRIEVER(user_input)
-    answer, source_documents = query_result["result"], query_result["source_documents"] if logger.VERBOSE else []
+    answer, source_documents = query_result["result"], query_result["source_documents"]
     return answer, source_documents
 
 

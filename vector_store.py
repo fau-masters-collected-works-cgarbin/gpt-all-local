@@ -30,6 +30,7 @@ def files_in_store() -> list[str]:
     # We need to be careful here because we are making assumptions about the format of external data
     try:
         metadata = _db.get(["metadatas"])["metadatas"]
+        # Remove duplicates
         set_of_files = set()
         for file_name in metadata:
             set_of_files.add(file_name["source"].split("/")[-1])
