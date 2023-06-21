@@ -95,7 +95,7 @@ def _split_document(document: Document) -> list[Document]:
     return split_doc
 
 
-def _add_to_store(documents: list[Document], store: any) -> None:
+def _add_to_store(documents: list[Document]) -> None:
     """Add documents to the vector store.
 
     This function adds the documents as they are to the store. Documents must be already split
@@ -104,15 +104,17 @@ def _add_to_store(documents: list[Document], store: any) -> None:
     Adding to the store also creates the embeddings.
     """
     start_time = time.time()
-    store.add_documents(documents)
+    vector_store.add_documents(documents)
     elapsed_time = time.time() - start_time
     log.debug("   Embedded to the vector store in %.2f seconds", elapsed_time)
 
 
+ingestion_counter = 0
 def _load_all_files(files: list[Path]) -> None:
     """Load all files into documents."""
-    db = vector_store.store()
-
+    global ingestion_counter  # pylint: disable=global-statement
+    ingestion_counter += 1
+    log.info("Starting ingestion %d", ingestion_counter)
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     processed_files = 0
     for i, file in enumerate(files):
@@ -128,7 +130,7 @@ def _load_all_files(files: list[Path]) -> None:
         document = _load_document(file)
         if document is not None:
             chunks = _split_document(document)
-            _add_to_store(chunks, db)
+            _add_to_store(chunks)
             processed_files += 1
 
     # Save once at the end to avoid saving multiple times

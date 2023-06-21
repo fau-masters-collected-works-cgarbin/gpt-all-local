@@ -1,4 +1,5 @@
 """Vector store functions to abstract it from the rest of the code."""
+from langchain.docstore.document import Document
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.vectorstores import VectorStore
@@ -15,6 +16,11 @@ def store() -> VectorStore:
     Use with caution to not break the abstraction.
     """
     return _db
+
+
+def add_documents(documents: list[Document]) -> None:
+    """Add the given documents to the vector store."""
+    _db.add_documents(documents)
 
 
 def persist():

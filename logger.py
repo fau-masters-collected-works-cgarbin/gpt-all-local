@@ -41,6 +41,10 @@ def get_logger():
         stderr_handler.setLevel(logging.ERROR)
         stderr_handler.setFormatter(formatter)
         logger.addHandler(stderr_handler)
+
+        # Prevents multiple log messages in some cases, e.g. with Streamlit
+        logger.propagate = False
+
     return logger
 
 
