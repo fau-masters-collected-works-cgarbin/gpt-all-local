@@ -23,13 +23,16 @@ def persist():
 
 
 def files_in_store() -> list[str]:
-    """Return the list of files in the store."""
+    """Return the list of files in the store.
+    
+    Only files names are returned, not the full path.
+    """
     # We need to be careful here because we are making assumptions about the format of external data
     try:
         metadata = _db.get(["metadatas"])["metadatas"]
         set_of_files = set()
         for file_name in metadata:
-            set_of_files.add(file_name["source"])
+            set_of_files.add(file_name["source"].split("/")[-1])
         return list(set_of_files)
     except:  # noqa: E722
         return []
@@ -42,4 +45,7 @@ def file_stored(file_name: str) -> bool:
       - It doesn't check if the file is in the store with a different name.
       - It doesn't check if the file contents are the same.
     """
-    return file_name in files_in_store()
+    # We compare only the file name, not the full path
+    file_name = file_name.split("/")[-1]
+    files_already_in_store = files_in_store()
+    return file_name in files_already_in_store
