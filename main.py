@@ -31,10 +31,11 @@ elif args.action == 'retrieve':
     retrieve.check_requisites()
     while (question := input("\nEnter a question or 'exit': ")) != "exit":
         answer, documents = retrieve.query(question)
-        log.info("Chunks used to answer the question:")
-        for i, document in enumerate(documents):
-            log.info("Chunk %d of %d, size: %d\nText: '%s [...] %s'\n   From file %s",
-                     i+1, len(documents), len(document.page_content),
-                     document.page_content[:50], document.page_content[-50:],
-                     document.metadata["source"])
+        if logger.VERBOSE:
+            log.info("Chunks used to answer the question:")
+            for i, document in enumerate(documents):
+                log.info("Chunk %d of %d, size: %d\nText: '%s [...] %s'\n   From file %s",
+                        i+1, len(documents), len(document.page_content),
+                        document.page_content[:50], document.page_content[-50:],
+                        document.metadata["source"])
         print(f"\n\nAnswer: {answer}")
