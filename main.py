@@ -34,8 +34,8 @@ elif args.action == 'retrieve':
         if logger.VERBOSE:
             log.info("Chunks used to answer the question:")
             for i, document in enumerate(documents):
-                log.info("Chunk %d of %d, size: %d\nText: '%s [...] %s'\n   From file %s",
-                        i+1, len(documents), len(document.page_content),
-                        document.page_content[:50], document.page_content[-50:],
-                        document.metadata["source"])
+                chunk = document.page_content
+                file = document.metadata["source"].split("/")[-1]
+                log.info("Chunk %d of %d with %d characters, from file %s\n%s [...] %s",
+                         i+1, len(documents), len(chunk), file, chunk[:50], chunk[-50:])
         print(f"\n\nAnswer: {answer}")

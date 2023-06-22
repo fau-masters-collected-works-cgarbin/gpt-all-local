@@ -114,6 +114,7 @@ Most of the ingest/retrieve code is based on [privateGPT](https://github.com/ima
 
 What is different:
 
+- Streamlit app for the UI.
 - Modernized the code. For example, it uses `pathlib` instead of `os.path` and has proper logging instead of print statements.
 - Added more logging to understand what is going on. Use the `--verbose` flag to see the details.
 - Added a main program to run the ingest/retrieve steps.

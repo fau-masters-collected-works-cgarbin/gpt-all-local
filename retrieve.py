@@ -13,6 +13,7 @@ This code is heavily based on the ingest.py code from https://github.com/imartin
 """
 import sys
 from langchain.chains import RetrievalQA
+from langchain.docstore.document import Document
 from langchain.llms import GPT4All
 import constants
 import logger
@@ -60,7 +61,7 @@ def check_requisites() -> None:
         sys.exit(1)
 
 
-def query(user_input: str) -> tuple[str, list[str]]:
+def query(user_input: str) -> tuple[Document, list[str]]:
     """Query the local data using the given query."""
     _prepare()
 
