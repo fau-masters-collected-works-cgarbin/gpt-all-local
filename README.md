@@ -8,7 +8,7 @@ What we are trying to achieve: given a set of files on a computer (A), we want a
 
 ![What we are trying to achieve](./pics/what-we-are-trying-to-achieve.drawio.png)
 
-However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them. To overcome that limitation, we split the files into smaller pieces, called _chunks_ and feed only the relevant ones to the model (D).
+However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them. To overcome that limitation, we split the files into smaller pieces, called _chunks_, and feed only the relevant ones to the model (D).
 
 ![Solution part 1](./pics/solution-part1-chunking.drawio.png)
 

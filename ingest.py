@@ -91,7 +91,8 @@ def _split_document(document: Document) -> list[Document]:
     elapsed_time = time.time() - start_time
     num_chunks = len(split_doc)
     log.debug("   Split into %d chunks in %.2f seconds", num_chunks, elapsed_time)
-    log.debug("   Requested chunk size: %d, average chunk size: %.2f", constants.CHUNK_SIZE, len(document.page_content)/num_chunks)
+    log.debug("   Requested chunk size: %d, average chunk size: %.2f", constants.CHUNK_SIZE,
+              len(document.page_content)/num_chunks)
     return split_doc
 
 
@@ -109,12 +110,8 @@ def _add_to_store(documents: list[Document]) -> None:
     log.debug("   Embedded to the vector store in %.2f seconds", elapsed_time)
 
 
-ingestion_counter = 0
 def _load_all_files(files: list[Path]) -> None:
     """Load all files into documents."""
-    global ingestion_counter  # pylint: disable=global-statement
-    ingestion_counter += 1
-    log.info("Starting ingestion %d", ingestion_counter)
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     processed_files = 0
     for i, file in enumerate(files):

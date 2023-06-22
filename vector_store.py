@@ -30,7 +30,7 @@ def persist():
 
 def files_in_store() -> list[str]:
     """Return the list of files in the store.
-    
+
     Only files names are returned, not the full path.
     """
     # We need to be careful here because we are making assumptions about the format of external data
