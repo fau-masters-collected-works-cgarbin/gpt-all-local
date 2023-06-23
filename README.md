@@ -12,7 +12,7 @@ However, we cannot feed the files directly to the model. Large language models (
 
 ![Solution part 1](./pics/solution-part1-chunking.drawio.png)
 
-But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (E) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with vectors that encode semantic relationships. Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instructs the LLM to answer the question.
+But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (E) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with vectors that encode semantic relationships (technically, a _dense_ vector embedding, not to confuse it with sparse vector representations such as [bag-of-words](https://en.wikipedia.org/wiki/Bag-of-words_model) and [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)). Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instructs the LLM to answer the question.
 
 ![Solution part 2](.pics/../pics/solution-part2-similarity%20search.drawio.png)
 
