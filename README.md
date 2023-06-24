@@ -2,6 +2,8 @@
 
 This project is a learning exercise on using large language models (LLMs) to retrieve information from private data, running all pieces (including the model) locally. The goal is to run an LLM on your computer to ask questions on a set of files also on your computer. The files can be any type of document, such as PDF, Word, or text files.
 
+This method of combining LLMs and private data is known as **retrieval-augmented generation** (RAG). It was introduced in [this paper](https://arxiv.org/abs/2005.11401).
+
 Credit where credit is due: I based this project on [privateGPT](https://github.com/imartinez/privateGPT). I reimplemented the pieces to understand how they work. See more in the [sources](#sources) section.
 
 What we are trying to achieve: given a set of files on a computer (A), we want a large language model (B) running on that computer to answer questions (C) on them.
@@ -36,7 +38,7 @@ There are two ways to use this project:
 1. [Command line interface](#command-line-interface)
 1. [Streamlit app (somewhat experimental)](#streamlit-app)
 
-### Command line interface
+### Command-line interface
 
 1. Copy the files you want to use into the `data` folder.
 1. Run `python main.py ingest` to ingest the files into the vector store.
@@ -139,7 +141,7 @@ pip install -r requirements.txt
 
 ### Model
 
-I suggest starting with the same model recommended by [privateGPT](https://github.com/imartinez/privateGPT), _GPT4All-J v1.3-groovy_. This model offers reasonable performance and runs on a CPU using about 4 GB of RAM. See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+I suggest starting with the model recommended by [privateGPT](https://github.com/imartinez/privateGPT), _GPT4All-J v1.3-groovy_. This model offers reasonable performance and runs on a CPU using about 4 GB of RAM. See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
 1. Create a folder named `models`.
 1. Click [here to download GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB).
