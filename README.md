@@ -10,13 +10,17 @@ What we are trying to achieve: given a set of files on a computer (A), we want a
 
 ![What we are trying to achieve](./pics/what-we-are-trying-to-achieve.drawio.png)
 
-However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them. To overcome that limitation, we split the files into smaller pieces, called _chunks_, and feed only the relevant ones to the model (D).
+However, we cannot feed the files directly to the model. Large language models (LLMs) have a context window that limits how much information we can feed into them (their working memory). To overcome that limitation, we split the files into smaller pieces, called _chunks_, and feed only the relevant ones to the model (D).
 
 ![Solution part 1](./pics/solution-part1-chunking.drawio.png)
 
 But then, the question becomes _"how do we find the relevant chunks?"_. We use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) (E) to match the question and the chunks. Similarity search, in turn, requires [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) (F), a representation of words with vectors that encode semantic relationships (technically, a _dense_ vector embedding, not to confuse it with sparse vector representations such as [bag-of-words](https://en.wikipedia.org/wiki/Bag-of-words_model) and [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)). Once we have the relevant chunks, we combine them with the question to create a prompt (G) that instructs the LLM to answer the question.
 
 ![Solution part 2](.pics/../pics/solution-part2-similarity%20search.drawio.png)
+
+We need one last piece: persistent storage. Creating embeddings for the chunks takes time. We don't want to do that every time we ask a question. Therefore, we need to save the embeddings and the original text (the chunks) in a [vector store (or database)](https://www.pinecone.io/learn/vector-database/) (H). The vector store can grow large because it stores the original text chunks and their vector embeddings. We use a [vector index](https://www.pinecone.io/learn/vector-indexes/) (I) to find relevant chunks efficiently.
+
+![Solution part 3](.pics/../pics/solution-part3-vector%20store.drawio.png)
 
 Now we have all the pieces we need.
 
