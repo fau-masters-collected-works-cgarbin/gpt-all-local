@@ -24,9 +24,6 @@ MODEL_FILE = "ggml-gpt4all-j-v1.3-groovy.bin"
 MODEL = Path(MODEL_DIR)  / Path(MODEL_FILE)  # use pathlib to work on Windows and Linux
 # Number of similar items (chunks) to retrieve from the store
 TARGET_SOURCE_CHUNKS = 4
-# The context window for the model (number of tokens)
-# Should fit the chunks we fetch and the question we ask
-MODEL_CONTEXT_WINDOW = CHUNK_SIZE * TARGET_SOURCE_CHUNKS + 200
 # Maximum token limit for the LLM model
 # From the original privateGPT commit https://github.com/imartinez/privateGPT/commit/ad661933cb3def747793c4b7194e3a42d2ab29a5:
 # "Number of tokens in the prompt that are fed into the model at a time. Optimal value differs a lot depending
