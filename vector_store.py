@@ -3,11 +3,14 @@ from langchain.docstore.document import Document
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.vectorstores import VectorStore
+import chromadb
 import constants
 
 _embeddings = HuggingFaceEmbeddings(model_name=constants.EMBEDDINGS_MODEL_NAME)
+
+_client = chromadb.PersistentClient(settings=constants.CHROMA_SETTINGS, path=constants.STORAGE_DIR)
 _db = Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=_embeddings,
-             client_settings=constants.CHROMA_SETTINGS)
+             client=_client)
 
 
 def store() -> VectorStore:
@@ -35,7 +38,7 @@ def files_in_store() -> list[str]:
     """
     # We need to be careful here because we are making assumptions about the format of external data
     try:
-        metadata = _db.get(["metadatas"])["metadatas"]
+        metadata = _db.get()["metadatas"]
         # Remove duplicates
         set_of_files = set()
         for file_name in metadata:
@@ -56,3 +59,10 @@ def file_stored(file_name: str) -> bool:
     file_name = file_name.split("/")[-1]
     files_already_in_store = files_in_store()
     return file_name in files_already_in_store
+
+
+# Use this to debug the code
+# Modify the code and start under the debugger
+if __name__ == "__main__":
+    files = files_in_store()
+    print(f"Files in store: {files}")

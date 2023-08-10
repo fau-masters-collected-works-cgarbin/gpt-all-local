@@ -38,7 +38,8 @@ def _prepare() -> None:
     log.info("Preparing the environment for the retrieval")
 
     global _MODEL  # pylint: disable=global-statement
-    _MODEL = GPT4All(model=str(constants.MODEL), n_batch=constants.MODEL_N_BATCH, backend='gptj', verbose=logger.VERBOSE)
+    _MODEL = GPT4All(model=str(constants.MODEL), n_batch=constants.MODEL_N_BATCH,
+                     backend='gptj', verbose=logger.VERBOSE)
     log.debug("   Loaded language model from '%s'", constants.MODEL)
 
     # Build a retriever from the vector store, embeddings, and model
