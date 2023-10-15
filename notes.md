@@ -4,7 +4,7 @@
 
 Use large language models (LLMs) to extract information from our own (local) data.
 
-Typical use case: a company has private documents that where never used to train the model. Therefore we need to enhance the interaction with the model to get results from these documents.
+Typical use case: a company has private documents that were never used to train the model. Therefore, we need to enhance the interaction with the model to get results from these documents.
 
 Possible solutions:
 
@@ -35,7 +35,7 @@ Items to consider when selecting a solution:
     1. Zero-shot learning: accuracy of the model on our own data.
 1. Response time
     1. Fine-tuning: potentially faster response time because of smaller prompts.
-    1. Zero-shot Potentially larger response time because of vector database lookup and larger prompts.
+    1. Zero-shot: Potentially larger response time because of vector database lookup and larger prompts.
 1. Data privacy
     1. Fine-tuning: data privacy is a concern because the model is trained on our own data.
     1. Zero-shot learning: data privacy is less of a concern because the model is not trained on our own data (but we still expose the prompt to the model).
@@ -77,9 +77,10 @@ Technical references:
 - [The "query your data" tutorial](https://github.com/openai/openai-cookbook/tree/main/apps/chatbot-kickstarter).
   - See [slides](https://drive.google.com/file/d/1dB-RQhZC_Q1iAsHkNNdkqtxxXqYODFYy/view) first.
   - This is a good conceptual example - a good place to start learning (starting with slides, then code).
-- [Enterprise Knowledge Retrieval](https://github.com/openai/openai-cookbook/tree/main/apps/enterprise-knowledge-retrieval).
+- [Enterprise Knowledge Retrieval](https://github.com/openai/openai-cookbook/tree/9e09df530dbf02c050e4dfff5e4f8e4eb35a26ac/apps/enterprise-knowledge-retrieval).
+  - **NOTE**: OpenAI removed all examples under the `app` directory ([explanation](https://github.com/openai/openai-cookbook/pull/776)). The link above takes you to the repository state before it was removed. That also means these examples are no longer maintained. As they get older, newer techniques may appear, so use this example as a starting point and look for newer ones.
   - _"The notebook is the best place to start, and takes you through an end-to-end workflow for setting up and evaluating a simple back-end knowledge retrieval service"_
-  - This is a **very good** notebook to start with. It shows not only the code, but also the thought process of putting a good solution in place and evaluating it.
+  - This is a **very good** notebook to start with. It shows not only the code but also the thought process of putting a good solution in place and evaluating it.
   - It also covers agents, i.e. invoke external tools to complement the LLM.
 - [File Q&A](https://github.com/openai/openai-cookbook/tree/main/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
   - Similar to the "query your data" and "enterprise knowledge retrieval" tutorials, but includes a front-end and backend.
@@ -103,7 +104,7 @@ Technical references:
 ### Projects that run GPT locally
 
 - [privateGPT](https://github.com/imartinez/privateGPT). Based on GPT4All.
-  - Shows how to ingest data from different files format with LangChain.
+  - Shows how to ingest data from different file formats with LangChain.
 - [Run ChatGPT-Style Questions Over Your Own Files Using the OpenAI API and LangChain!](https://www.reaminated.com/run-chatgpt-style-questions-over-your-own-files-using-the-openai-api-and-langchain).
 - [GPT-4 & LangChain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain): _"Create a ChatGPT Chatbot for Your PDF Files"_.
 
@@ -115,13 +116,13 @@ Technical references:
 
 ### Other projects with LLMs
 
-- [AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT): Similar to "agents" in LangChain. May be interesting to see how it is implemented behind the scenes (LangChain is also open source, but it has a lot more than agents -- this one is more focused).
+- [AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT): Similar to "agents" in LangChain. It may be interesting to see how it is implemented behind the scenes (LangChain is also open source, but it has a lot more than agents -- this one is more focused).
 
 ### Vector database and similarity search
 
 - [Faiss: the missing manual](https://www.pinecone.io/learn/faiss/): Covers the basic concepts in the context of Faiss.
 
-### Fine tuning
+### Fine-tuning
 
 - [OpenAI fine-tuning guide](https://platform.openai.com/docs/guides/fine-tuning)
 
@@ -138,8 +139,10 @@ Technical references:
 
 ### Improving search results
 
-- [Enterprise Knowledge Retrieval (OpenAI)](https://github.com/openai/openai-cookbook/blob/main/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb): Discusses techniques to improve search results, including "re-ranking" and "query expansion". Uses LangChain to implement some of the techniques.
-- [Fine-tuning a Classifier to Improve Truthfulness (openAI)](https://help.openai.com/en/articles/5528730-fine-tuning-a-classifier-to-improve-truthfulness): Discusses how to fine-tune a classifier to remove false results.
+- [Question answering using a search API and re-ranking (OpenAI)](https://github.com/openai/openai-cookbook/blob/2ed5c83fb9dc03f5907a4be4e57f128cee4acafc/examples/Question_answering_using_a_search_API.ipynb)
+- [Search re-ranking in more details (OpenAI)](https://github.com/openai/openai-cookbook/blob/2ed5c83fb9dc03f5907a4be4e57f128cee4acafc/examples/Search_reranking_with_cross-encoders.ipynb)
+- [Hypothetical Document Embeddings: Using hallucinations productively (OpenAI)](https://github.com/openai/openai-cookbook/blob/2ed5c83fb9dc03f5907a4be4e57f128cee4acafc/examples/vector_databases/chroma/hyde-with-chroma-and-openai.ipynb): demonstrates how to use [HyDE](https://arxiv.org/abs/2212.10496) to improve retrieval
+- [Fine-tuning a Classifier to Improve Truthfulness (OpenAI)](https://help.openai.com/en/articles/5528730-fine-tuning-a-classifier-to-improve-truthfulness): Discusses how to fine-tune a classifier to remove false results.
 - Dynamically chosing [prompts](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/multi_prompt_router.ipynb) and [retrievers](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/multi_retrieval_qa_router.ipynb).
 - [Moderating the results](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/moderation.ipynb).
 
