@@ -74,15 +74,16 @@ Technical references:
 
 ### OpenAI
 
-- [The "query your data" tutorial](https://github.com/openai/openai-cookbook/tree/main/apps/chatbot-kickstarter).
+**NOTE**: OpenAI removed all examples under the `apps` directory ([explanation](https://github.com/openai/openai-cookbook/pull/776)). The links below take you to the repository state before the `apps` directory was removed. Removing them also means they are no longer maintained. As they get older, newer techniques may appear, so use these examples as a starting point and look for newer ones.
+
+- [The "query your data" tutorial](https://github.com/openai/openai-cookbook/tree/9e09df530dbf02c050e4dfff5e4f8e4eb35a26ac/apps/chatbot-kickstarter).
   - See [slides](https://drive.google.com/file/d/1dB-RQhZC_Q1iAsHkNNdkqtxxXqYODFYy/view) first.
   - This is a good conceptual example - a good place to start learning (starting with slides, then code).
 - [Enterprise Knowledge Retrieval](https://github.com/openai/openai-cookbook/tree/9e09df530dbf02c050e4dfff5e4f8e4eb35a26ac/apps/enterprise-knowledge-retrieval).
-  - **NOTE**: OpenAI removed all examples under the `app` directory ([explanation](https://github.com/openai/openai-cookbook/pull/776)). The link above takes you to the repository state before it was removed. That also means these examples are no longer maintained. As they get older, newer techniques may appear, so use this example as a starting point and look for newer ones.
   - _"The notebook is the best place to start, and takes you through an end-to-end workflow for setting up and evaluating a simple back-end knowledge retrieval service"_
   - This is a **very good** notebook to start with. It shows not only the code but also the thought process of putting a good solution in place and evaluating it.
   - It also covers agents, i.e. invoke external tools to complement the LLM.
-- [File Q&A](https://github.com/openai/openai-cookbook/tree/main/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
+- [File Q&A](https://github.com/openai/openai-cookbook/tree/9e09df530dbf02c050e4dfff5e4f8e4eb35a26ac/apps/file-q-and-a): _"[U]pload files and ask questions related to their content, and the app will use embeddings and GPT to generate answers from the most relevant files"_.
   - Similar to the "query your data" and "enterprise knowledge retrieval" tutorials, but includes a front-end and backend.
   - Seems to be older than the "knowledge retrieval" tutorial.
 - [Using Vector Databases for Embeddings Search](https://github.com/openai/openai-cookbook/blob/main/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb).
