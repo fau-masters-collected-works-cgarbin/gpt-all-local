@@ -12,11 +12,9 @@ CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 
 # Model name for the HuggingFace embeddings
-# See https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2: "It maps sentences & paragraphs to a 384
-# dimensional dense vector space and can be used for tasks like clustering or semantic search."
-# Note that 384 dimensions is not a lot. It may not produce the best results. However, it's small and fast to run on
-# a CPU-only machine.
-EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
+# See Hugging Face's leaderboard at https://huggingface.co/spaces/mteb/leaderboard
+# Pick a model that matches your CPU/GPU capabilities and the number of dimensions you want
+EMBEDDINGS_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 # LLM model
 MODEL_DIR = "models"
