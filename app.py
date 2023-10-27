@@ -6,7 +6,8 @@ import ingest
 import retrieve
 import vector_store
 
-st.header("Retrieval Augmented Generation (RAG)")
+st.set_page_config(page_title="RAG prototype", page_icon="🔎", layout="wide")
+st.title("Retrieval Augmented Generation (RAG) prototype")
 st.subheader("A prototype for RAG with all pieces running locally")
 st.image("pics/solution-part2-similarity search-no letters.drawio.png")
 
@@ -59,13 +60,14 @@ def answer_question():
     with st.spinner("Retrieving answer (please be patient - everything is running on your computer)..."):
         answer, docs = retrieve.query(question)
         st.write(f"Answer: {answer}")
-        with st.expander("See the chunks used to answer the question"):
+        with st.expander("Click to show/hide the chunks used to answer the question"):
+            cols = st.columns(len(docs))
             for i, doc in enumerate(docs):
-                chunk = doc.page_content
-                file = doc.metadata["source"].split("/")[-1]
-                st.markdown(f"**Chunk {i+1} with {len(chunk)} characters, from {file}**")
-                st.write(chunk)
-                st.divider()
+                with cols[i]:
+                    chunk = doc.page_content
+                    file = doc.metadata["source"].split("/")[-1]
+                    st.markdown(f"**Chunk {i+1} with {len(chunk)} characters, from {file}**")
+                    st.write(chunk)
 
 
 st.subheader("Ask a question")
