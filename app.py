@@ -24,6 +24,8 @@ def update_files_in_store_section():
             files_in_store = sorted(files_in_store)
             for file_name in files_in_store:
                 st.write(file_name)
+
+
 update_files_in_store_section()
 
 
@@ -67,5 +69,5 @@ def answer_question():
 
 
 st.subheader("Ask a question")
-question = st.text_input("", placeholder="Ask a question  - press Enter to submit", label_visibility="collapsed")
+question = st.text_input("Question", placeholder="Ask a question  - press Enter to submit", label_visibility="hidden")
 answer_question()
