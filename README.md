@@ -4,7 +4,7 @@ This project is a learning exercise on using large language models (LLMs) to ret
 
 This method of combining LLMs and private data is known as **retrieval-augmented generation** (RAG). It was introduced in [this paper](https://arxiv.org/abs/2005.11401).
 
-Credit where credit is due: I based this project on [privateGPT](https://github.com/imartinez/privateGPT). I reimplemented the pieces to understand how they work. See more in the [sources](#sources) section.
+Credit where credit is due: I based this project on the [original privateGPT](https://github.com/imartinez/privateGPT/tree/primordial) (what they now call the _primordial_ version). I reimplemented the pieces to understand how they work. See more in the [sources](#sources) section.
 
 What we are trying to achieve: given a set of files on a computer (A), we want a large language model (B) running on that computer to answer questions (C) on them.
 
@@ -79,7 +79,6 @@ Future improvements:
 - [ ] Improve parallelism. Ideally, we want to run the entire workflow (load document, chunk, embed, persist) in parallel for each file. This requires a solution that parallelizes not only I/O-bound but also CPU-bound tasks. The vector store must also support multiple writers.
 - [ ] Try different [chunking strategies](https://www.pinecone.io/learn/chunking-strategies/), e.g. check if sentence splitters ( `NLTKTextSplitter` or `SpacyTextSplitter`) improve the answers.
 - [ ] Choose chunking size based on the LLM input (context) size. It is currently hardcoded to a small number, which may affect the quality of the results. On the other hand, it saves costs on the LLM API. We need to find a balance.
-- [ ] Correctly update the store when reading documents already in it. Currently, the store size grows with each run, indicating that we may be adding the same documents multiple times.
 - [ ] Automate the ingestion process: detect if there are new or changed files and ingest them.
 
 ### Retrieving data
@@ -99,7 +98,6 @@ Retrieving data has the following steps:
 Future improvements:
 
 - [ ] Add [LangChain callbacks](https://python.langchain.com/en/latest/modules/callbacks/getting_started.html) to view the steps of the retrieval process.
-- [ ] Try larger context windows.
 - [ ] Improve the prompt to answer only with what is in the local documents, e.g. "Use only information from the following documents: ...". Without this step the model seems to dream up an answer from the training data, which is not always relevant.
 - [ ] Add [moderation](https://github.com/hwchase17/langchain/blob/7047a2c1afce1f1e2e6e4e3e9d94bbf369466a5f/docs/modules/chains/examples/moderation.ipynb) to filter out offensive answers.
 - [ ] Improve the answers with [reranking](https://github.com/openai/openai-cookbook/blob/2a2753e8d0566fbf21a8270ce6afaf761d7cdee5/apps/enterprise-knowledge-retrieval/enterprise_knowledge_retrieval.ipynb#L1388): _"over-fetch our search results, and then deterministically rerank based on a modifier or set of modifiers."_.
@@ -110,18 +108,18 @@ Future improvements:
 We had to make some compromises to make it run on a local machine in a reasonable amount of time.
 
 - We use a small model. This one is hard to change. The model has to run on a CPU and fit in memory.
-- We use a small context window. We can increase the context window if we wait longer for the results from the model.
 - We use a small embedding size. We can increase the embedding size if we wait longer for the ingestion process.
 - Keep everything the same and try different [chains](https://python.langchain.com/en/latest/modules/chains/index_examples/qa_with_sources.html).
 
 ## Sources
 
-Most of the ingest/retrieve code is based on [privateGPT](https://github.com/imartinez/privateGPT).
+Most of the ingest/retrieve code is based on the [original privateGPT](https://github.com/imartinez/privateGPT/tree/primordial), the one they call now _primordial_.
 
 What is different:
 
 - Streamlit app for the UI.
-- Modernized the code. For example, it uses `pathlib` instead of `os.path` and has proper logging instead of print statements.
+- Use newer embeddings and large language model versions.
+- Modernized the Python code. For example, it uses `pathlib` instead of `os.path` and has proper logging instead of print statements.
 - Added more logging to understand what is going on. Use the `--verbose` flag to see the details.
 - Added a main program to run the ingest/retrieve steps.
 - Filled in `requirements.txt` with the indirect dependencies, for example, for HuggingFace transformers and LangChain document loaders.
