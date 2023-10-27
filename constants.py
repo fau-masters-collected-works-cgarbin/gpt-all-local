@@ -20,7 +20,7 @@ EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 
 # LLM model
 MODEL_DIR = "models"
-MODEL_FILE = "ggml-gpt4all-j-v1.3-groovy.bin"
+MODEL_FILE = "mistral-7b-openorca.Q4_0.gguf"
 MODEL = Path(MODEL_DIR) / Path(MODEL_FILE)  # use pathlib to work on Windows and Linux
 # Number of similar items (chunks) to retrieve from the store
 TARGET_SOURCE_CHUNKS = 4

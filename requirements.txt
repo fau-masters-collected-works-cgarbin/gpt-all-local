@@ -1,8 +1,8 @@
 # The tools for this project are still rapidly evolving
 # We specify the versions to avoid breaking changes
 
-langchain == 0.0.260
-chromadb == 0.4.5   # Vector database - embedding persistence
+langchain == 0.0.324
+chromadb == 0.4.15   # Vector database - embedding persistence
 
 # For the LangChain document loaders
 pdfminer.six == 20221105
@@ -11,11 +11,11 @@ pdfminer.six == 20221105
 sentence_transformers == 2.2.2
 
 # For the LLM
-gpt4all == 1.0.8
+gpt4all == 2.0.1
 
 # These are supporting tools
 # We don't need the exact minor version
-streamlit ~= 1.23
+streamlit ~= 1.28
 
 # Linters and formatters (use the latest versions)
 pylint

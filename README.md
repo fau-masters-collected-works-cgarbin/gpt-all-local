@@ -145,8 +145,8 @@ pip install -r requirements.txt
 
 ### Model
 
-I suggest starting with the model recommended by [privateGPT](https://github.com/imartinez/privateGPT), _GPT4All-J v1.3-groovy_. This model offers reasonable performance and runs on a CPU using about 4 GB of RAM. See the [GPT4All website](https://gpt4all.io/index.html) for a list of GPT4All models and their comparison. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+I suggest starting with a small model that run on CPU. GPT4All has a list of models [here](https://gpt4all.io/index.html). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
 1. Create a folder named `models`.
-1. Click [here to download GPT4All-J v1.3-groovy](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin) (3.5 GB).
+1. Click [here to download Mistral 7B OpenOrca](https://gpt4all.io/models/gguf/mistral-7b-openorca.Q4_0.gguf) (3.8 GB download, 8 GB RAM).
 1. Copy the model to the `models` folder.

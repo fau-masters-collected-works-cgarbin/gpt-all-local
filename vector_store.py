@@ -2,7 +2,6 @@
 from langchain.docstore.document import Document
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
-from langchain.vectorstores import VectorStore
 import chromadb
 import constants
 
@@ -13,7 +12,7 @@ _db = Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=_embedd
              client=_client)
 
 
-def store() -> VectorStore:
+def store():
     """Return the vector store.
 
     Use with caution to not break the abstraction.
