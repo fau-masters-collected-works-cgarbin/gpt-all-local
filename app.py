@@ -11,27 +11,24 @@ st.title("Retrieval Augmented Generation (RAG) prototype")
 st.subheader("A prototype for RAG with all pieces running locally")
 st.image("pics/solution-part2-similarity search-no letters.drawio.png")
 
-st.subheader("Add documents (files) to the store")
-files_in_store_section = st.empty()
 
-
-def update_files_in_store_section():
+def show_files_in_store_section():
     """Show which files are already in the store."""
+    st.subheader("Files already in the store")
     files_in_store = vector_store.files_in_store()
     if len(files_in_store) == 0:
-        files_in_store_section.write("No documents in the store")
+        st.write("No documents in the store")
     else:
-        with files_in_store_section.expander("Click to see documents (files) already in the store"):
+        with st.expander("Click to see documents (files) already in the store"):
             files_in_store = sorted(files_in_store)
             for file_name in files_in_store:
                 st.write(file_name)
 
 
-update_files_in_store_section()
-
-
 def upload_file():
     """Upload a file to the store."""
+    st.subheader("Add documents (files) to the store")
+    file_to_upload = st.file_uploader("Upload a file (if it's not in the store yet)")
     if file_to_upload is None:
         return
 
@@ -46,14 +43,13 @@ def upload_file():
             with open(f"{temp_dir}/{file_to_upload.name}", "wb") as temp_file:
                 temp_file.write(file_contents)
                 ingest.ingest(temp_dir)
-                update_files_in_store_section()
-
-
-file_to_upload = st.file_uploader("Upload a file (if it's not in the store yet)")
-upload_file()
 
 
 def answer_question():
+    """Let the user ask a question and retrieve the answer."""
+    st.subheader("Ask a question")
+    question = st.text_input("Question", placeholder="Ask a question  - press Enter to submit",
+                             label_visibility="hidden")
     if question is None or question == "":
         return
 
@@ -70,6 +66,6 @@ def answer_question():
                     st.write(chunk)
 
 
-st.subheader("Ask a question")
-question = st.text_input("Question", placeholder="Ask a question  - press Enter to submit", label_visibility="hidden")
+show_files_in_store_section()
+upload_file()
 answer_question()
