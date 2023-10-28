@@ -50,7 +50,7 @@ There are two ways to use this project:
 
 Use the `--verbose` flag to get more details on what the program is doing behind the scenes.
 
-To update the data, copy the new data into the `data` folder and run `python main.py ingest` again.
+To re-ingest the data, delete the `vector_store` folder and run `python main.py ingest` again.
 
 ### Streamlit app
 
