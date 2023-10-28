@@ -7,6 +7,7 @@ chromadb == 0.4.15   # Vector database - embedding persistence
 # Document loaders
 unstructured ~= 0.10
 pdf2image ~= 1.16  # For Unstructured
+pdfminer.six == 20221105  # For Unstructured
 
 # For HuggingFace embeddings
 sentence_transformers == 2.2.2
