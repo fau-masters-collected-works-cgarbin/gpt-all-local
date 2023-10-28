@@ -2,12 +2,20 @@
 from langchain.docstore.document import Document
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
+from chromadb.config import Settings
 import chromadb
 import constants
 
+CHROMA_SETTINGS = Settings(
+    # Configure Chroma for persistence
+    persist_directory=constants.STORAGE_DIR,
+    # Do not send telemetry data (the goal of this project is to do everything locally)
+    anonymized_telemetry=False
+)
+
 _embeddings = HuggingFaceEmbeddings(model_name=constants.EMBEDDINGS_MODEL_NAME)
 
-_client = chromadb.PersistentClient(settings=constants.CHROMA_SETTINGS, path=constants.STORAGE_DIR)
+_client = chromadb.PersistentClient(settings=CHROMA_SETTINGS, path=constants.STORAGE_DIR)
 _db = Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=_embeddings,
              client=_client)
 

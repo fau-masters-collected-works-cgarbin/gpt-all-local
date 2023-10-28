@@ -1,6 +1,5 @@
 """Constants used throughout the project."""
 from pathlib import Path
-from chromadb.config import Settings
 
 DATA_DIR = "data"
 STORAGE_DIR = "vector_store"
@@ -27,10 +26,3 @@ TARGET_SOURCE_CHUNKS = 4
 # "Number of tokens in the prompt that are fed into the model at a time. Optimal value differs a lot depending
 # on the model (8 works well for GPT4All, and 1024 is better for LlamaCpp)"
 MODEL_N_BATCH = 1024
-
-CHROMA_SETTINGS = Settings(
-    # Configure Chroma for persistence
-    persist_directory=STORAGE_DIR,
-    # Do not send telemetry data (the goal of this project is to do everything locally)
-    anonymized_telemetry=False
-)
