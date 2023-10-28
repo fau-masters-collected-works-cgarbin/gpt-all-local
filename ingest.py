@@ -13,12 +13,11 @@ from pathlib import Path
 import time
 from langchain.document_loaders import (
     CSVLoader,
-    EverNoteLoader,
-    PDFMinerLoader,
     TextLoader,
     UnstructuredHTMLLoader,
     UnstructuredMarkdownLoader,
     UnstructuredODTLoader,
+    UnstructuredPDFLoader,
     UnstructuredPowerPointLoader,
     UnstructuredWordDocumentLoader,
 )
@@ -31,21 +30,18 @@ import vector_store
 log = logger.get_logger()
 
 # Extension to loader mapping
-# This concept, of having a map, is based on privateGPT's implementation
+# This map concept is based on privateGPT's implementation
 LOADER_MAPPING = {
     ".csv": (CSVLoader, {}),
-    # ".docx": (Docx2txtLoader, {}),
     ".doc": (UnstructuredWordDocumentLoader, {}),
     ".docx": (UnstructuredWordDocumentLoader, {}),
-    ".enex": (EverNoteLoader, {}),
     ".html": (UnstructuredHTMLLoader, {}),
     ".md": (UnstructuredMarkdownLoader, {}),
     ".odt": (UnstructuredODTLoader, {}),
-    ".pdf": (PDFMinerLoader, {}),
+    ".pdf": (UnstructuredPDFLoader, {}),
     ".ppt": (UnstructuredPowerPointLoader, {}),
     ".pptx": (UnstructuredPowerPointLoader, {}),
     ".txt": (TextLoader, {"encoding": "utf8"}),
-    # Add more mappings for other file extensions and loaders as needed
 }
 
 
@@ -72,8 +68,7 @@ def _load_document(file: Path) -> Document | None:
 
     # TODO: improve PDF loader
     # This is a kludge to improve what we get from the PDF loader. There are several PDF loaders, with different
-    # capabilities. The one we are using is the simplest one, and it doesn't do a good job with some PDFs (mainly
-    # because we are using all its features -- see https://stackoverflow.com/a/69151177).
+    # capabilities.
     # In the future we should call the PDF loader directly, not through LangChain, to better control how it loads
     # the document.
     # This joins words that were split at the end of a line (e.g. "word-" + "\n" + "word" -> "wordword")
@@ -86,13 +81,21 @@ def _load_document(file: Path) -> Document | None:
 def _split_document(document: Document) -> list[Document]:
     """Split a document into chunks."""
     start_time = time.time()
+    # TODO: choose a splitter based on the document type
     splitter = RecursiveCharacterTextSplitter(chunk_size=constants.CHUNK_SIZE, chunk_overlap=constants.CHUNK_OVERLAP)
     split_doc = splitter.split_documents([document])  # convert to list to satisfy the interface
     elapsed_time = time.time() - start_time
+
+    # Calculate some statistics
     num_chunks = len(split_doc)
+    chunk_sizes = [len(doc.page_content) for doc in split_doc]
+    average_chunk_size = sum(chunk_sizes)/num_chunks
+    min_chunk_size = min(chunk_sizes)
+    max_chunk_size = max(chunk_sizes)
+
     log.debug("   Split into %d chunks in %.2f seconds", num_chunks, elapsed_time)
-    log.debug("   Requested chunk size: %d, average chunk size: %.2f", constants.CHUNK_SIZE,
-              len(document.page_content)/num_chunks)
+    log.debug("   Requested chunk size: %d, minimum, maximum, average chunk size: %d, %d, %.2f",
+              constants.CHUNK_SIZE, min_chunk_size, max_chunk_size, average_chunk_size)
     return split_doc
 
 
