@@ -12,7 +12,7 @@ st.subheader("A prototype for RAG with all pieces running locally")
 st.image("pics/solution-part2-similarity search-no letters.drawio.png")
 
 
-def show_files_in_store_section():
+def show_files_in_store():
     """Show which files are already in the store."""
     st.subheader("Files already in the store")
     files_in_store = vector_store.files_in_store()
@@ -25,7 +25,7 @@ def show_files_in_store_section():
                 st.write(file_name)
 
 
-def upload_file():
+def add_file_to_store():
     """Upload a file to the store."""
     st.subheader("Add documents (files) to the store")
     file_to_upload = st.file_uploader("Upload a file (if it's not in the store yet)")
@@ -66,6 +66,6 @@ def answer_question():
                     st.write(chunk)
 
 
-show_files_in_store_section()
-upload_file()
+show_files_in_store()
+add_file_to_store()
 answer_question()
