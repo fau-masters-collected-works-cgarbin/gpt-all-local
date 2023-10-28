@@ -39,8 +39,8 @@ If you haven't done so yet, [prepare the environment](#preparing-the-environment
 
 There are two ways to use this project:
 
-1. [Command line interface](#command-line-interface)
-1. [Streamlit app (somewhat experimental)](#streamlit-app)
+1. [Command line interface](#command-line-interface): use this one to see more logs and understand what is going on (see the `--verbose` flag below).
+1. [Streamlit app](#streamlit-app): use this one for a more user-friendly experience.
 
 ### Command-line interface
 
