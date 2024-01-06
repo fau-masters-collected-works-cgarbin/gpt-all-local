@@ -63,8 +63,8 @@ def answer_question():
             cols = st.columns(len(docs))
             for i, doc in enumerate(docs):
                 with cols[i]:
-                    chunk = doc.page_content
-                    file = doc.metadata["source"].split("/")[-1]
+                    chunk = doc.page_content  # type: ignore
+                    file = doc.metadata["source"].split("/")[-1]  # type: ignore
                     st.markdown(f"**Chunk {i+1} with {len(chunk)} characters, from {file}**")
                     st.write(chunk)
 

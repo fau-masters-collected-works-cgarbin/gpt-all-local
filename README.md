@@ -56,6 +56,8 @@ To re-ingest the data, delete the `vector_store` folder and run `python main.py 
 
 Run `streamlit run app.py`. It will open the app in a browser window.
 
+This command may fail the first you run it. There is a glitch somewhere in how the Python environment works together with pyenv. If Streamlit show a "cannot import module message", deactivate the Python environment with `deactivate`, activate it again with `source venv/bin/activate`, and run `streamlit run app.py`.
+
 ## Design
 
 ### Ingesting data
