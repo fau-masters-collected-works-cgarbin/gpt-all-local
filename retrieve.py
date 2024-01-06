@@ -66,7 +66,7 @@ def query(user_input: str) -> tuple[Document, list[str]]:
 
     log = logger.get_logger()
     log.info("Querying the local data with '%s'", user_input)
-    query_result = _RETRIEVER(user_input)
+    query_result = _RETRIEVER(user_input)  # type: ignore
     answer, source_documents = query_result["result"], query_result["source_documents"]
     return answer, source_documents
 
