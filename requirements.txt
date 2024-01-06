@@ -5,13 +5,9 @@ langchain == 0.1.0
 chromadb == 0.4.22   # Vector database - embedding persistence
 
 # Document loaders
-unstructured ~= 0.11.0
+unstructured[local-inference] ~= 0.11.0
 # For Unstructured loaders
-pdf2image ~= 1.16.0
-pdfminer.six == 20221105
 markdown ~= 3.0.0
-python-pptx ~= 0.6.0
-python-docx  ~= 1.0.0
 
 # For HuggingFace embeddings
 sentence_transformers == 2.2.2
