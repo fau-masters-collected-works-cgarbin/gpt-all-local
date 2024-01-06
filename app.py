@@ -1,7 +1,9 @@
 """Streamlit App for the project."""
 
 import tempfile
+
 import streamlit as st
+
 import ingest
 import retrieve
 import vector_store
@@ -48,8 +50,9 @@ def add_file_to_store():
 def answer_question():
     """Let the user ask a question and retrieve the answer."""
     st.subheader("Ask a question")
-    question = st.text_input("Question", placeholder="Ask a question  - press Enter to submit",
-                             label_visibility="hidden")
+    question = st.text_input(
+        "Question", placeholder="Ask a question  - press Enter to submit", label_visibility="hidden"
+    )
     if question is None or question == "":
         return
 
