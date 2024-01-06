@@ -2,6 +2,7 @@
 # We specify the versions to avoid breaking changes
 
 langchain == 0.1.0
+langchain-community == 0.0.9
 chromadb == 0.4.22   # Vector database - embedding persistence
 
 # Document loaders

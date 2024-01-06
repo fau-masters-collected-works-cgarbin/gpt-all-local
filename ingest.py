@@ -9,9 +9,12 @@ The goal of this step is to prepare the local data to be used by the language mo
 
 This code is heavily based on the ingest.py code from https://github.com/imartinez/privateGPT.
 """
-from pathlib import Path
 import time
-from langchain.document_loaders import (
+from pathlib import Path
+
+from langchain.docstore.document import Document
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import (
     CSVLoader,
     TextLoader,
     UnstructuredHTMLLoader,
@@ -21,8 +24,7 @@ from langchain.document_loaders import (
     UnstructuredPowerPointLoader,
     UnstructuredWordDocumentLoader,
 )
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.docstore.document import Document
+
 import constants
 import logger
 import vector_store
@@ -89,13 +91,18 @@ def _split_document(document: Document) -> list[Document]:
     # Calculate some statistics
     num_chunks = len(split_doc)
     chunk_sizes = [len(doc.page_content) for doc in split_doc]
-    average_chunk_size = sum(chunk_sizes)/num_chunks
+    average_chunk_size = sum(chunk_sizes) / num_chunks
     min_chunk_size = min(chunk_sizes)
     max_chunk_size = max(chunk_sizes)
 
     log.debug("   Split into %d chunks in %.2f seconds", num_chunks, elapsed_time)
-    log.debug("   Requested chunk size: %d, minimum, maximum, average chunk size: %d, %d, %.2f",
-              constants.CHUNK_SIZE, min_chunk_size, max_chunk_size, average_chunk_size)
+    log.debug(
+        "   Requested chunk size: %d, minimum, maximum, average chunk size: %d, %d, %.2f",
+        constants.CHUNK_SIZE,
+        min_chunk_size,
+        max_chunk_size,
+        average_chunk_size,
+    )
     return split_doc
 
 
@@ -118,8 +125,9 @@ def _load_all_files(files: list[Path]) -> None:
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     processed_files = 0
     for i, file in enumerate(files):
-        log.info("Processing file '%s' (%d of %d), with size %s bytes", file, i+1, len(files),
-                 f"{file.stat().st_size:,}")
+        log.info(
+            "Processing file '%s' (%d of %d), with size %s bytes", file, i + 1, len(files), f"{file.stat().st_size:,}"
+        )
 
         # TODO: investigate how to correctly update the store when processing documents that already exist in it
         # The file may have changed since the last time we processed it

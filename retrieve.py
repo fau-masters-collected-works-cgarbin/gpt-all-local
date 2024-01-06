@@ -12,9 +12,11 @@ NOTE: This code assumes that the model has already been downloaded. See the READ
 This code is heavily based on the ingest.py code from https://github.com/imartinez/privateGPT.
 """
 import sys
+
 from langchain.chains import RetrievalQA
 from langchain.docstore.document import Document
-from langchain.llms import GPT4All
+from langchain_community.llms import GPT4All
+
 import constants
 import logger
 import vector_store
@@ -38,8 +40,9 @@ def _prepare() -> None:
     log.info("Preparing the environment for the retrieval")
 
     global _MODEL  # pylint: disable=global-statement
-    _MODEL = GPT4All(model=str(constants.MODEL), n_batch=constants.MODEL_N_BATCH,
-                     backend='gptj', verbose=logger.VERBOSE)
+    _MODEL = GPT4All(
+        model=str(constants.MODEL), n_batch=constants.MODEL_N_BATCH, backend="gptj", verbose=logger.VERBOSE
+    )
     log.debug("   Loaded language model from '%s'", constants.MODEL)
 
     # Build a retriever from the vector store, embeddings, and model
@@ -48,8 +51,9 @@ def _prepare() -> None:
     log.debug("   Loaded vector store from '%s'", constants.STORAGE_DIR)
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
-    _RETRIEVER = RetrievalQA.from_chain_type(llm=_MODEL, chain_type="stuff", retriever=vs_retriever,
-                                             return_source_documents=True)
+    _RETRIEVER = RetrievalQA.from_chain_type(
+        llm=_MODEL, chain_type="stuff", retriever=vs_retriever, return_source_documents=True
+    )
 
 
 def check_requisites() -> None:
