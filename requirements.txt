@@ -1,29 +1,27 @@
 # The tools for this project are still rapidly evolving
 # We specify the versions to avoid breaking changes
 
-langchain == 0.0.324
-chromadb == 0.4.15   # Vector database - embedding persistence
+langchain == 0.1.0
+chromadb == 0.4.22   # Vector database - embedding persistence
 
 # Document loaders
-unstructured ~= 0.10
+unstructured ~= 0.11.0
 # For Unstructured loaders
-pdf2image ~= 1.16
+pdf2image ~= 1.16.0
 pdfminer.six == 20221105
-markdown ~= 3.0
-python-pptx ~= 0.6
-python-docx  ~= 1.0
+markdown ~= 3.0.0
+python-pptx ~= 0.6.0
+python-docx  ~= 1.0.0
 
 # For HuggingFace embeddings
 sentence_transformers == 2.2.2
 
 # For the LLM
-gpt4all == 2.0.1
+gpt4all == 2.0.2
 
 # These are supporting tools
 # We don't need the exact minor version
-streamlit ~= 1.28
+streamlit ~= 1.29.0
 
 # Linters and formatters (use the latest versions)
-pylint
-black
-prospector
+ruff
