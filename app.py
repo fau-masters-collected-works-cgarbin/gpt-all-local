@@ -38,9 +38,9 @@ def add_file_to_store(col):
         col.write(f"'{file_to_upload.name}' is already in the store")
         return
 
-    with col.spinner("Adding document to the store (please be patient - everything is running on your computer)..."):
+    with st.spinner("Adding document to the store (please be patient - everything is running on your computer)..."):
         # Read the file and save to a local temporary directory (ingestion requires a local file)
-        file_contents = file_to_upload.read("")
+        file_contents = file_to_upload.read()
         with tempfile.TemporaryDirectory() as temp_dir:
             with open(f"{temp_dir}/{file_to_upload.name}", "wb") as temp_file:
                 temp_file.write(file_contents)
