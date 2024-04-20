@@ -1,4 +1,5 @@
 """Constants used throughout the project."""
+
 from pathlib import Path
 
 DATA_DIR = "data"
@@ -17,7 +18,7 @@ EMBEDDINGS_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 
 # LLM model
 MODEL_DIR = "models"
-MODEL_FILE = "mistral-7b-openorca.Q4_0.gguf"
+MODEL_FILE = "mistral-7b-openorca.gguf2.Q4_0.gguf"
 MODEL = Path(MODEL_DIR) / Path(MODEL_FILE)  # use pathlib to work on Windows and Linux
 # Number of similar items (chunks) to retrieve from the store
 TARGET_SOURCE_CHUNKS = 4

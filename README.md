@@ -145,8 +145,8 @@ pip install -r requirements.txt
 
 ### Model
 
-I suggest starting with a small model that run on CPU. GPT4All has a list of models [here](https://gpt4all.io/index.html). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+I suggest starting with a small model that run on CPU. GPT4All has a list of models [here](https://gpt4all.io/index.html). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
 1. Create a folder named `models`.
-1. Click [here to download Mistral 7B OpenOrca](https://gpt4all.io/models/gguf/mistral-7b-openorca.Q4_0.gguf) (3.8 GB download, 8 GB RAM).
+1. Click [here to download Mistral 7B OpenOrca](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf) (3.8 GB download, 8 GB RAM).
 1. Copy the model to the `models` folder.
