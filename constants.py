@@ -8,8 +8,9 @@ STORAGE_DIR = "vector_store"
 # Control the chunking
 # TODO: investigate chunking strategies
 # See, for example, https://www.pinecone.io/learn/chunking-strategies/
-CHUNK_SIZE = 500
-CHUNK_OVERLAP = 50
+# The unit of the chunking varies by splitter - for a character splitter, it's number of characters
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 100
 
 # Model name for the HuggingFace embeddings
 # See Hugging Face's leaderboard at https://huggingface.co/spaces/mteb/leaderboard
