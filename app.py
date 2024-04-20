@@ -30,7 +30,7 @@ def show_files_in_store(col):
 def add_file_to_store(col):
     """Upload a file to the store."""
     col.subheader("Add files")
-    file_to_upload = col.file_uploader("", label_visibility="collapsed")
+    file_to_upload = col.file_uploader("File upload", label_visibility="collapsed")
     if file_to_upload is None:
         return
 
