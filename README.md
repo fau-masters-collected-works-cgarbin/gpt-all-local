@@ -143,6 +143,10 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+### PDF parsing
+
+The PDF parser in [`unstructured`](https://github.com/Unstructured-IO/unstructured) is a layer on top of the actual parser packages. Follow the instructions in the [`unstructured` README](https://github.com/Unstructured-IO/unstructured/blob/main/README.md#installing-the-library), under the "Install the following system dependencies" bullets. The poppler and tesseract packages are required (ignore the others).
+
 ### Model
 
 I suggest starting with a small model that run on CPU. GPT4All has a list of models [here](https://gpt4all.io/index.html). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.

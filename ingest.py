@@ -9,7 +9,9 @@ The goal of this step is to prepare the local data to be used by the language mo
 
 This code is heavily based on the ingest.py code from https://github.com/imartinez/privateGPT.
 """
+
 import re
+import ssl
 import time
 from pathlib import Path
 
@@ -194,6 +196,11 @@ def ingest(directory: str = constants.DATA_DIR):
     TODO: verify what happens if the document already exists in the store, i.e. what happens if we call "ingest"
     multiple times and some of the files have already been ingested.
     """
+    # Workaround for the error "CERTIFICATE_VERIFY_FAILED] certificate verify failed" when downloadig nltk files
+    # They are downloaded by parser packages via unstructured
+    # Source: https://github.com/gunthercox/ChatterBot/issues/930
+    ssl._create_default_https_context = ssl._create_unverified_context
+
     # Ensure that the storage directory exists
     Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
 
