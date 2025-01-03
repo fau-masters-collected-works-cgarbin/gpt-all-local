@@ -43,12 +43,12 @@ def _prepare() -> None:
     _MODEL = GPT4All(
         model=str(constants.MODEL), n_batch=constants.MODEL_N_BATCH, backend="gptj", verbose=logger.VERBOSE
     )
-    log.debug("   Loaded language model from '%s'", constants.MODEL)
+    log.debug(f"   Loaded language model from '{constants.MODEL}'")
 
     # Build a retriever from the vector store, embeddings, and model
     db = vector_store.store()
     vs_retriever = db.as_retriever(search_kwargs={"k": constants.TARGET_SOURCE_CHUNKS})
-    log.debug("   Loaded vector store from '%s'", constants.STORAGE_DIR)
+    log.debug(f"   Loaded vector store from '{constants.STORAGE_DIR}'")
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
     _RETRIEVER = RetrievalQA.from_chain_type(
@@ -60,7 +60,9 @@ def check_requisites() -> None:
     """Check if the model has been downloaded."""
     if not constants.MODEL.is_file():
         log = logger.get_logger()
-        log.error("Cannot find the model at '%s'. Please download it first (see the README).", constants.MODEL)
+        log.error(
+            f"Cannot find the model at '{constants.MODEL}'. Please download it first (see the README).",
+        )
         sys.exit(1)
 
 
@@ -69,7 +71,7 @@ def query(user_input: str) -> tuple[Document, list[str]]:
     _prepare()
 
     log = logger.get_logger()
-    log.info("Querying the local data with '%s'", user_input)
+    log.info(f"Querying the local data with '{user_input}'")
     query_result = _RETRIEVER.invoke(user_input)  # type: ignore
     answer, source_documents = query_result["result"], query_result["source_documents"]
     return answer, source_documents

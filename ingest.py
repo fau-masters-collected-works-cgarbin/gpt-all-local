@@ -106,7 +106,7 @@ def _load_document(file: Path) -> Document | None:
 
     document = _post_process_document(document)
 
-    log.debug("   Loaded document with %s characters in %.2f seconds", f"{len(document.page_content):,}", elapsed_time)
+    log.debug(f"   Loaded document with {len(document.page_content):,} characters in {elapsed_time:.2f} seconds")
     return document
 
 
@@ -125,13 +125,10 @@ def _split_document(document: Document) -> list[Document]:
     min_chunk_size = min(chunk_sizes)
     max_chunk_size = max(chunk_sizes)
 
-    log.debug("   Split into %d chunks in %.2f seconds", num_chunks, elapsed_time)
+    log.debug(f"   Split into {num_chunks} chunks in {elapsed_time:.2f} seconds")
     log.debug(
-        "   Requested chunk size: %d, minimum, maximum, average chunk size: %d, %d, %.2f",
-        constants.CHUNK_SIZE,
-        min_chunk_size,
-        max_chunk_size,
-        average_chunk_size,
+        f"   Requested chunk size: {constants.CHUNK_SIZE}"
+        f", minimum: {min_chunk_size}, maximum: {max_chunk_size}, average chunk size: {average_chunk_size}"
     )
     return split_doc
 
@@ -147,7 +144,7 @@ def _add_to_store(documents: list[Document]) -> None:
     start_time = time.time()
     vector_store.add_documents(documents)
     elapsed_time = time.time() - start_time
-    log.debug("   Embedded to the vector store in %.2f seconds", elapsed_time)
+    log.debug(f"   Embedded to the vector store in {elapsed_time:%.2f} seconds")
 
 
 def _load_all_files(files: list[Path]) -> None:
@@ -156,7 +153,7 @@ def _load_all_files(files: list[Path]) -> None:
     processed_files = 0
     for i, file in enumerate(files):
         log.info(
-            "Processing file '%s' (%d of %d), with size %s bytes", file, i + 1, len(files), f"{file.stat().st_size:,}"
+            f"Processing file '{file}' ({i + 1} of {len(files)}), with size {file.stat().st_size:,} bytes"
         )
 
         # TODO: investigate how to correctly update the store when processing documents that already exist in it
@@ -209,7 +206,7 @@ def ingest(directory: str = constants.DATA_DIR):
     # Remove from the list chunked files we may have created in a previous run
     files = [file for file in files if not file.name.endswith(constants.PARSING_CHUNKED_FILE_SUFFIX)]
 
-    log.info("Found %d files to ingest in %s", len(files), directory)
+    log.info(f"Found {len(files)} files to ingest in {directory}")
     _load_all_files(files)
 
 
