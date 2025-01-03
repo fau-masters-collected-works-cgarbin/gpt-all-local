@@ -11,6 +11,7 @@ NOTE: This code assumes that the model has already been downloaded. See the READ
 
 This code is heavily based on the ingest.py code from https://github.com/imartinez/privateGPT.
 """
+
 import sys
 
 from langchain.chains import RetrievalQA
@@ -32,7 +33,11 @@ def _prepared() -> bool:
 
 
 def _prepare() -> None:
-    """Prepare the environment for the retrieval."""
+    """Prepare the environment for the retrieval.
+
+    Notes:
+      - *Not* thread-safe.
+    """
     if _prepared():
         return
 
