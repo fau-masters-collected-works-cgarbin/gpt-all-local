@@ -1,24 +1,27 @@
 # The tools for this project are still rapidly evolving
 # We specify the versions to avoid breaking changes
 
-langchain == 0.1.16
-langchain-community == 0.0.34
-chromadb == 0.4.24   # Vector database - embedding persistence
+langchain == 0.3.13
+langchain-community == 0.3.13
+langchain-huggingface == 0.1.2
+
+langchain-chroma == 0.1.4
+chromadb == 0.5.23   # Vector database - embedding persistence
 
 # Document loaders
-unstructured[local-inference] ~= 0.12.5
+unstructured[local-inference] ~= 0.16.11
 # For Unstructured loaders
-markdown ~= 3.0.0
+markdown ~= 3.7.0
 
 # For HuggingFace embeddings
-sentence_transformers == 2.5.1
+sentence_transformers == 3.3.1
 
 # For the LLM
-gpt4all == 2.5.1
+gpt4all == 2.8.2
 
 # These are supporting tools
 # We don't need the exact minor version
-streamlit ~= 1.31.1
+streamlit ~= 1.41.0
 
 # Linters and formatters (use the latest versions)
 ruff
