@@ -35,28 +35,39 @@ These two steps are illustrated in the following diagram.
 
 ## How to use this project
 
-If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
-
 There are two ways to use this project:
 
 1. [Command line interface](#command-line-interface): use this one to see more logs and understand what is going on (see the `--verbose` flag below).
 1. [Streamlit app](#streamlit-app): use this one for a more user-friendly experience.
 
+The first time you run the commands it may take a while to complete because it will download some pieces like the embedding model. Subsequent runs will be faster.
+
 ### Command-line interface
+
+If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
 1. Copy the files you want to use into the `data` folder.
 1. Run `python main.py ingest` to ingest the files into the vector store.
+   1. Review the [PDF parsing](#pdf-parsing) section if you get an error when ingesting PDF files.
 1. Run `python main.py retrieve` to retrieve data from the vector store. It will prompt you for a question.
 
 Use the `--verbose` flag to get more details on what the program is doing behind the scenes.
 
 To re-ingest the data, delete the `vector_store` folder and run `python main.py ingest` again.
 
+Review the [PDF parsing](#pdf-parsing) section if you get an error when ingesting PDF files.
+
 ### Streamlit app
+
+If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
 Run `streamlit run app.py`. It will open the app in a browser window.
 
 This command may fail the first you run it. There is a glitch somewhere in how the Python environment works together with pyenv. If Streamlit show a "cannot import module message", deactivate the Python environment with `deactivate`, activate it again with `source venv/bin/activate`, and run `streamlit run app.py`.
+
+It will take a few minutes to show the UI the first time you run it because it will download the embedding model. Subsequent runs will be faster.
+
+Review the [PDF parsing](#pdf-parsing) section if you get an error when ingesting PDF files.
 
 ## Design
 
@@ -79,7 +90,7 @@ Future improvements:
 
 - [ ] More intelligent document parsing. For example, do not mix figure captions with the section text; do not parse the reference section (alternatively, replace the inline references with the actual reference text).
 - [ ] Improve parallelism. Ideally, we want to run the entire workflow (load document, chunk, embed, persist) in parallel for each file. This requires a solution that parallelizes not only I/O-bound but also CPU-bound tasks. The vector store must also support multiple writers.
-- [ ] Try different [chunking strategies](https://www.pinecone.io/learn/chunking-strategies/), e.g. check if sentence splitters ( `NLTKTextSplitter` or `SpacyTextSplitter`) improve the answers.
+- [ ] Try different [chunking strategies](https://www.pinecone.io/learn/chunking-strategies/), e.g. check if sentence splitters (`NLTKTextSplitter` or `SpacyTextSplitter`) improve the answers.
 - [ ] Choose chunking size based on the LLM input (context) size. It is currently hardcoded to a small number, which may affect the quality of the results. On the other hand, it saves costs on the LLM API. We need to find a balance.
 - [ ] Automate the ingestion process: detect if there are new or changed files and ingest them.
 
@@ -130,15 +141,17 @@ See [this file](./notes.md) for more notes collected during the development of t
 
 ## Preparing the environment
 
-This is a one-time step. If you have already done this, just activate the virtual environment with `source venv/bin/activate`.
+This is a one-time step. If you have already done this, just activate the virtual environment with `source venv/bin/activate` (Windows: `venv\Scripts\activate.bat`).
 
 ### Python environment
+
+Some packages require Python 3.11 or lower. Ensure that `python3 --version` shows 3.11.
 
 Run the following commands to create a virtual environment and install the required packages.
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate # Windows: venv\Scripts\activate.bat
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -147,10 +160,23 @@ pip install -r requirements.txt
 
 The PDF parser in [`unstructured`](https://github.com/Unstructured-IO/unstructured) is a layer on top of the actual parser packages. Follow the instructions in the [`unstructured` README](https://github.com/Unstructured-IO/unstructured/blob/main/README.md#installing-the-library), under the "Install the following system dependencies" bullets. The poppler and tesseract packages are required (ignore the others).
 
+On Mac OS with [Homebrew](https://brew.sh/): `brew install poppler tesseract`.
+
 ### Model
 
-I suggest starting with a small model that run on CPU. GPT4All has a list of models [here](https://gpt4all.io/index.html). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+I suggest starting with a small model that runs on CPU. GPT4All has a list of models [here](https://github.com/nomic-ai/gpt4all/tree/main/gpt4all-chat/metadata). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
 
 1. Create a folder named `models`.
 1. Click [here to download Mistral 7B OpenOrca](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf) (3.8 GB download, 8 GB RAM).
 1. Copy the model to the `models` folder.
+
+On Mac OS, Git Bash, or Linux:
+
+```bash
+mkdir -p models
+cd models
+
+curl -O https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf
+
+ls -lh mistral-7b-openorca.gguf2.Q4_0.gguf
+```
