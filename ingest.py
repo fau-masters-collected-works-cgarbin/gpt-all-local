@@ -13,6 +13,7 @@ This code is heavily based on the ingest.py code from https://github.com/imartin
 import re
 import ssl
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from langchain.docstore.document import Document
@@ -180,9 +181,37 @@ def _load_all_files(files: list[Path]) -> None:
     # we lose all the work, and to save memory (not have all documents in memory at the same time)
     if processed_files > 0:
         start_time = time.time()
-        vector_store.persist()
         elapsed_time = time.time() - start_time
-        log.info("Persisted the vector store in %.2f seconds", elapsed_time)
+        log.info(f"Persisted the vector store in {elapsed_time:.2f} seconds")
+
+
+def _prepare_to_ingest():
+    """Prepare the environment for ingestion."""
+    # Workaround for the error "CERTIFICATE_VERIFY_FAILED] certificate verify failed" when downloadig nltk files
+    # They are downloaded by parser packages via unstructured
+    # Source: https://github.com/gunthercox/ChatterBot/issues/930
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+    # Ensure that the storage directory exists
+    Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
+
+    # Lazy import to log its cost at the point of use
+    log.info("Preparing NTLK data")
+    import nltk
+    from nltk.data import find
+
+    # Download NLTK modules used by Unstructured
+    def download_nltk_data(module: str):
+        try:
+            find(module)
+            log.info(f"NLTK module already downloaded: {module}")
+        except LookupError:
+            log.info(f"Downloading NLTK module: {module}")
+            nltk.download(module)
+
+    nltk_modules = ["tokenizers/punkt", "taggers/averaged_perceptron_tagger"]
+    with ThreadPoolExecutor() as executor:
+        executor.map(download_nltk_data, nltk_modules)
 
 
 def ingest(directory: str = constants.DATA_DIR):
@@ -191,13 +220,7 @@ def ingest(directory: str = constants.DATA_DIR):
     TODO: verify what happens if the document already exists in the store, i.e. what happens if we call "ingest"
     multiple times and some of the files have already been ingested.
     """
-    # Workaround for the error "CERTIFICATE_VERIFY_FAILED] certificate verify failed" when downloadig nltk files
-    # They are downloaded by parser packages via unstructured
-    # Source: https://github.com/gunthercox/ChatterBot/issues/930
-    ssl._create_default_https_context = ssl._create_unverified_context
-
-    # Ensure that the storage directory exists
-    Path(constants.STORAGE_DIR).mkdir(parents=True, exist_ok=True)
+    _prepare_to_ingest()
 
     files = _file_list(directory)
 
