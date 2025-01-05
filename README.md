@@ -47,11 +47,11 @@ The first time you run the commands it may take a while to complete because it w
 If you haven't done so yet, [prepare the environment](#preparing-the-environment). If you have already prepared the environment, activate it with `source venv/bin/activate`.
 
 1. Copy the files you want to use into the `data` folder.
-1. Run `python main.py ingest` to ingest the files into the vector store.
+1. Run `python main.py ingest --verbose` to ingest the files into the vector store.
    1. Review the [PDF parsing](#pdf-parsing) section if you get an error when ingesting PDF files.
-1. Run `python main.py retrieve` to retrieve data from the vector store. It will prompt you for a question.
+1. Run `python main.py retrieve --verbose` to retrieve data from the vector store. It will prompt you for a question.
 
-Use the `--verbose` flag to get more details on what the program is doing behind the scenes.
+The `--verbose` flag shows more details on what the program is doing behind the scenes.
 
 To re-ingest the data, delete the `vector_store` folder and run `python main.py ingest` again.
 
