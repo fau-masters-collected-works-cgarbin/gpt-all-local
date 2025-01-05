@@ -45,15 +45,15 @@ def _prepare() -> None:
     log.info("Preparing the environment for the retrieval")
 
     global _MODEL  # pylint: disable=global-statement
+    log.debug(f"   Loading language model from '{constants.MODEL}'")
     _MODEL = GPT4All(
         model=str(constants.MODEL), n_batch=constants.MODEL_N_BATCH, backend="gptj", verbose=logger.VERBOSE
     )
-    log.debug(f"   Loaded language model from '{constants.MODEL}'")
 
     # Build a retriever from the vector store, embeddings, and model
     db = vector_store.store()
+    log.debug(f"   Loading vector store from '{constants.STORAGE_DIR}'")
     vs_retriever = db.as_retriever(search_kwargs={"k": constants.TARGET_SOURCE_CHUNKS})
-    log.debug(f"   Loaded vector store from '{constants.STORAGE_DIR}'")
     global _RETRIEVER  # pylint: disable=global-statement
     # TODO: test other options for `chain_type`
     _RETRIEVER = RetrievalQA.from_chain_type(
