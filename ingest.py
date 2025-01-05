@@ -176,14 +176,6 @@ def _load_all_files(files: list[Path]) -> None:
             _add_to_store(chunks)
             processed_files += 1
 
-    # Save once at the end to avoid saving multiple times
-    # TODO: investigate if we can save one document at a time, to cover the case where the process is interrupted and
-    # we lose all the work, and to save memory (not have all documents in memory at the same time)
-    if processed_files > 0:
-        start_time = time.time()
-        elapsed_time = time.time() - start_time
-        log.info(f"Persisted the vector store in {elapsed_time:.2f} seconds")
-
 
 def _prepare_to_ingest():
     """Prepare the environment for ingestion."""
