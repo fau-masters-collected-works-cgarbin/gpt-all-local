@@ -37,7 +37,7 @@ elif args.action == "retrieve":
             log.info("Chunks used to answer the question:")
             for i, document in enumerate(documents):
                 chunk = document.page_content  # type: ignore
-                file = document.metadata["source"].split("/")[-1]  # type: ignore
+                file = document.metadata.get("source", "unknown").split("/")[-1]
                 log.info(
                     f"Chunk {i + 1} of {len(documents)} with {len(chunk)} characters,"
                     f" from file {file}\n{chunk[:50]} [...] {chunk[-50:]}"
