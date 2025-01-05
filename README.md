@@ -1,6 +1,6 @@
 # Using LLMs on private data, all locally
 
-This project is a learning exercise on using large language models (LLMs) to retrieve information from private data, running all pieces (including the model) locally. The goal is to run an LLM on your computer to ask questions on a set of files also on your computer. The files can be any type of document, such as PDF, Word, or text files.
+This project is a learning exercise on using large language models (LLMs) to retrieve information from private data, running all pieces (including the LLM) locally. The goal is to run an LLM on your computer to ask questions about a set of files on your computer. The files can be any type of document, such as PDF, Word, or text files.
 
 This method of combining LLMs and private data is known as **retrieval-augmented generation** (RAG). It was introduced in [this paper](https://arxiv.org/abs/2005.11401).
 
@@ -26,7 +26,7 @@ Now we have all the pieces we need.
 
 We can divide the implementation into two parts: ingesting and retrieving data.
 
-1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We also need to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question. Because chunking and embedding take time, we want to do that only once, so we save the results in a [vector store](https://www.pinecone.io/learn/vector-database/) (database).
+1. Ingestion: The goal is to divide the local files into smaller chunks that fit into the LLM input size (context window). We must also create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) for each chunk. The vector embeddings allow us to find the most relevant chunks to help answer the question. Because chunking and embedding take time, we want to do that only once, so we save the results in a [vector store](https://www.pinecone.io/learn/vector-database/) (database).
 2. Retrieval: Given a user question, we use [similarity search](https://www.pinecone.io/learn/what-is-similarity-search/) to find the most relevant chunks (i.e. the pieces of the local files related to the question). Once we determine the most relevant chunks, we can use the LLM to answer the question. To do so, we combine the user question with the relevant chunks and a prompt instructing the LLM to answer the question.
 
 These two steps are illustrated in the following diagram.
@@ -63,7 +63,7 @@ If you haven't done so yet, [prepare the environment](#preparing-the-environment
 
 Run `streamlit run app.py`. It will open the app in a browser window.
 
-This command may fail the first you run it. There is a glitch somewhere in how the Python environment works together with pyenv. If Streamlit show a "cannot import module message", deactivate the Python environment with `deactivate`, activate it again with `source venv/bin/activate`, and run `streamlit run app.py`.
+This command may fail the first you run it. There is a glitch somewhere in how the Python environment works together with pyenv. If Streamlit shows a "cannot import module message", deactivate the Python environment with `deactivate`, activate it again with `source venv/bin/activate`, and run `streamlit run app.py`.
 
 It will take a few minutes to show the UI the first time you run it because it will download the embedding model. Subsequent runs will be faster.
 
@@ -77,7 +77,7 @@ If you haven't done so yet, [prepare the environment](#preparing-the-environment
 
 Command: `python main.py ingest [--verbose]`
 
-The goal of this stage is to make the data searchable. However, the user's question and the data contents may not match exactly. Therefore, we cannot use a simple search engine. We need to perform a similarity search supported by [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/). The vector embedding is the most important part of this stage.
+The goal of this stage is to make the data searchable. However, the user's question and the data contents may not match exactly. Therefore, we cannot use a simple search engine. We must perform a similarity search supported by [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/). The vector embedding is the most important part of this stage.
 
 Ingesting data has the following steps:
 
@@ -164,7 +164,7 @@ On Mac OS with [Homebrew](https://brew.sh/): `brew install poppler tesseract`.
 
 ### Model
 
-I suggest starting with a small model that runs on CPU. GPT4All has a list of models [here](https://github.com/nomic-ai/gpt4all/tree/main/gpt4all-chat/metadata). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the license before using them in commercial projects.
+I suggest starting with a small model that runs on CPU. GPT4All has a list of models [here](https://github.com/nomic-ai/gpt4all/tree/main/gpt4all-chat/metadata). I tested with [mistral-7b-openorca Q4](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf). It requires 8 GB of RAM to run. Note that some of the models have restrictive licenses. Check the licenses before using them in commercial projects.
 
 1. Create a folder named `models`.
 1. Click [here to download Mistral 7B OpenOrca](https://gpt4all.io/models/gguf/mistral-7b-openorca.gguf2.Q4_0.gguf) (3.8 GB download, 8 GB RAM).
