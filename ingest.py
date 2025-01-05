@@ -102,8 +102,16 @@ def _load_document(file: Path) -> Document | None:
     start_time = time.time()
     loader = loader_class(str(file), **loader_kwargs)
     # TODO: defer loading (lazy load) until the document is actually needed (when we split it)
-    document = loader.load()[0]  # loader is a generator - this forces it to read the file
+    loaded_docs = loader.load()
+    if not loaded_docs:
+        log.error(f"Failed to load document from file: {file}")
+        return None
+    document = loaded_docs[0]  # loader is a generator - this forces it to read the file
     elapsed_time = time.time() - start_time
+
+    if not document.page_content:
+        log.error(f"Document is empty after loading: {file}")
+        return None
 
     document = _post_process_document(document)
 
