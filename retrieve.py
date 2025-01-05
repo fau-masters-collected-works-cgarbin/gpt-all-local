@@ -71,7 +71,7 @@ def check_requisites() -> None:
         sys.exit(1)
 
 
-def query(user_input: str) -> tuple[Document, list[str]]:
+def query(user_input: str) -> tuple[str, list[Document]]:
     """Query the local data using the given query."""
     _prepare()
 
