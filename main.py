@@ -39,7 +39,7 @@ elif args.action == "retrieve":
                 chunk = document.page_content  # type: ignore
                 file = document.metadata.get("source", "unknown").split("/")[-1]
                 log.info(
-                    f"Chunk {i + 1} of {len(documents)} with {len(chunk)} characters,"
+                    f"   Chunk {i + 1} of {len(documents)} with {len(chunk)} characters,"
                     f" from file {file}\n{chunk[:50]} [...] {chunk[-50:]}"
                 )
 

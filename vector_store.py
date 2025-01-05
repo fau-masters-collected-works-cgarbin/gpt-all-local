@@ -40,7 +40,7 @@ def _prepare():
     log.debug(f"   Loading the embedding model '{constants.EMBEDDINGS_MODEL_NAME}'")
     embeddings = langchain_huggingface.HuggingFaceEmbeddings(model_name=constants.EMBEDDINGS_MODEL_NAME)
 
-    log.debug(f"   Creating the vector store in '{constants.STORAGE_DIR}'")
+    log.debug(f"   Connecting to the vector store in '{constants.STORAGE_DIR}'")
     client = chromadb.PersistentClient(settings=CHROMA_SETTINGS, path=constants.STORAGE_DIR)
     _DB = langchain_chroma.Chroma(persist_directory=constants.STORAGE_DIR, embedding_function=embeddings, client=client)
 
