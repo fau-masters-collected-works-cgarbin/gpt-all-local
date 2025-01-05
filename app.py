@@ -31,7 +31,7 @@ def add_file_to_store(col):
     """Upload a file to the store."""
     col.subheader("Add files")
     file_to_upload = col.file_uploader("File upload", label_visibility="collapsed")
-    if file_to_upload is None:
+    if not file_to_upload:
         return
 
     if vector_store.file_stored(file_to_upload.name):
@@ -48,25 +48,34 @@ def add_file_to_store(col):
 
 
 def answer_question():
-    """Let the user ask a question and retrieve the answer."""
+    """Let the user ask a question and generate the answer."""
     st.subheader("Ask a question")
-    question = st.text_input(
-        "Question", placeholder="Ask a question  - press Enter to submit", label_visibility="collapsed"
-    )
-    if question is None or question == "":
-        return
 
-    with st.spinner("Retrieving answer (please be patient - everything is running on your computer)..."):
-        answer, docs = retrieve.query(question)
-        st.write(f"Answer: {answer}")
-        with st.expander("Click to show/hide the chunks used to answer the question"):
-            cols = st.columns(len(docs))
-            for i, doc in enumerate(docs):
-                with cols[i]:
-                    chunk = doc.page_content  # type: ignore
-                    file = doc.metadata["source"].split("/")[-1]  # type: ignore
-                    st.markdown(f"**Chunk {i+1} with {len(chunk)} characters, from {file}**")
-                    st.write(chunk)
+    # Input field and submit button
+    colInput, colButton = st.columns([4, 1])
+    with colInput:
+        question = st.text_input(
+            "Question",
+            placeholder="Ask a question and click the Submit button",
+            label_visibility="collapsed",
+            key="user_question",
+        )
+    with colButton:
+        submit_button = st.button("Submit")
+
+    # Answer the question if the user asked one
+    if submit_button and question.strip():
+        with st.spinner("Retrieving answer (please be patient - everything is running on your computer)..."):
+            answer, docs = retrieve.query(question)
+            st.write(f"Answer: {answer}")
+            with st.expander("Click to show/hide the chunks used to answer the question"):
+                cols = st.columns(len(docs))
+                for i, doc in enumerate(docs):
+                    with cols[i]:
+                        chunk = doc.page_content  # type: ignore
+                        file = doc.metadata["source"].split("/")[-1]  # type: ignore
+                        st.markdown(f"**Chunk {i+1} with {len(chunk)} characters, from {file}**")
+                        st.write(chunk)
 
 
 col_add_file, col_files_in_store = st.columns(2)
