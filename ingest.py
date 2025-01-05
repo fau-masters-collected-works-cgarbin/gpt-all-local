@@ -94,7 +94,7 @@ def _post_process_document(document: Document) -> Document:
 def _load_document(file: Path) -> Document | None:
     """Load a file into a document."""
     if file.suffix not in LOADER_MAPPING:
-        log.error("No loader found for file '%s' - skipping it", file)
+        log.error(f"No loader found for file '{file}' - skipping it")
         return None
 
     loader_class, loader_kwargs = LOADER_MAPPING[file.suffix]
@@ -128,7 +128,7 @@ def _split_document(document: Document) -> list[Document]:
     log.debug(f"   Split into {num_chunks} chunks in {elapsed_time:.2f} seconds")
     log.debug(
         f"   Requested chunk size: {constants.CHUNK_SIZE}"
-        f", minimum: {min_chunk_size}, maximum: {max_chunk_size}, average chunk size: {average_chunk_size}"
+        f", minimum: {min_chunk_size}, maximum: {max_chunk_size}, average: {int(average_chunk_size)}"
     )
     return split_doc
 
@@ -144,7 +144,7 @@ def _add_to_store(documents: list[Document]) -> None:
     start_time = time.time()
     vector_store.add_documents(documents)
     elapsed_time = time.time() - start_time
-    log.debug(f"   Embedded to the vector store in {elapsed_time:%.2f} seconds")
+    log.debug(f"   Embedded to the vector store in {elapsed_time:.2f} seconds")
 
 
 def _load_all_files(files: list[Path]) -> None:
@@ -152,9 +152,7 @@ def _load_all_files(files: list[Path]) -> None:
     # TODO: Parallelize this loop (load, split, add to store in parallel for each file)
     processed_files = 0
     for i, file in enumerate(files):
-        log.info(
-            f"Processing file '{file}' ({i + 1} of {len(files)}), with size {file.stat().st_size:,} bytes"
-        )
+        log.info(f"Processing file '{file}' ({i + 1} of {len(files)}), with size {file.stat().st_size:,} bytes")
 
         # TODO: investigate how to correctly update the store when processing documents that already exist in it
         # The file may have changed since the last time we processed it
